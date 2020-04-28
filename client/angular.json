@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "paradiseProject"
+    }
+  },
+  "defaultProject": "paradiseProject",
+  "cli": {
+    "analytics": "f963885a-1127-4206-b6f6-584715b75ade"
+  }
 }
