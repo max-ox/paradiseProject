@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const HttpStatus = require('http-status-codes');
 
-function makeApp({ rootRouter }) {
+function makeApp() {
     const app = express();
 
     app.use(bodyParser.urlencoded({extended: false}));
@@ -13,19 +13,6 @@ function makeApp({ rootRouter }) {
         res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, Authorization');
         next();
     });
-
-    const url = 'mongodb://localhost/blogDb'; //todo: move to config
-
-    app.get('/api/user/login', (req, res) => {
-        res.send('Hello World!')
-    })
-
-    app.post('/api/user/login', (req, res) => {
-        mongoose.connect(url, function(err){
-            if(err) throw err;
-            console.log('connected successfully, username is ',req.body.username,' password is ',req.body.password);
-        });
-    })
 
     // Catch 404 and forward to error handler
     app.use((req, res) => {
@@ -39,7 +26,7 @@ function makeApp({ rootRouter }) {
             .json({ error: 'Unexpected structure error', debug: error.message });
     });
 
-    app.listen(env.process.PORT, () => console.log('blog server running on port 3000!'))
+    return app;
 
 }
 
