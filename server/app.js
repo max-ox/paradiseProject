@@ -7,6 +7,10 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var config = require('./config');
+
+var connection_str = config.database.dialect+'://' + config.database.host + '/' + config.database.db_name;
+
 var app = express();
 
 // view engine setup
@@ -26,6 +30,13 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+//Устанавливаем соединение с mongoose
+var mongoose = require('mongoose');
+mongoose.connect(connection_str);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // error handler
 app.use(function(err, req, res, next) {
