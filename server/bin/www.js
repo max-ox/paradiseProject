@@ -6,8 +6,13 @@
 
 const debug = require('debug')('paradiseProject:server');
 const http = require('http');
+var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID
+
 const config = require('../src/config');
 const makeApp = require('../src/app');
+var db = require('../src/db');
+var connection_str = config.database.dialect+'://' + config.database.host + '/' + config.database.db_name;
 
 const app = makeApp();
 
@@ -58,7 +63,16 @@ function onListening() {
 /**
  * Listen on provided port, on all network interfaces.
  */
+console.log(connection_str)
+db.connect(connection_str, function (err) {
+    if (err) {
+        return console.log(err);
+    }
+    server.listen(config.port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+})
 
-server.listen(config.port);
-server.on('error', onError);
-server.on('listening', onListening);
+// server.listen(config.port);
+// server.on('error', onError);
+// server.on('listening', onListening);

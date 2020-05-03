@@ -1,5 +1,3 @@
-const { database } = require('../config');
-const db = {};
 var MongoClient = require('mongodb').MongoClient;
 
 var state = {
@@ -19,8 +17,6 @@ exports.connect = function (url, done) {
         done();
     })
 }
-
-state.db = connect(database.dialect+ '://' + database.host+'/'+database.db_name)
 
 exports.get = function () {
     return state.db;
