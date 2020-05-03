@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const HttpStatus = require('http-status-codes');
+var index = require('./routers/index')
 
 function makeApp() {
     const app = express();
@@ -25,6 +26,11 @@ function makeApp() {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .json({ error: 'Unexpected structure error', debug: error.message });
     });
+
+    // app.use('/api/v1', router);
+
+    app.use('/v1', index);
+    // app.use('/users', users);
 
     return app;
 
