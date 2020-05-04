@@ -4,26 +4,22 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema(
     {
-        first_name: {type: String, required: true, max: 100},
-        family_name: {type: String, required: true, max: 100},
-        date_of_birth: {type: Date},
-        date_of_death: {type: Date},
+        login: {type: String, required: true, max: 30},
+        nickname: {type: String, required: true, max: 30},
+        email: {type: String, required: true, max: 100},
+        password: {type: String, required: true, max: 100},
+        link_for_connect: {type: String, required: true},
+        its_pin: {type: String, required: true, max: 5},
+        achievements: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Achievement"
+            }
+        ],
+        fraction: {type: mongoose.Schema.Types.ObjectId, ref: "Fraction"},
+        rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"}
     }
 );
-
-// Виртуальное свойство для полного имени автора
-UserSchema
-    .virtual('name')
-    .get(function () {
-        return this.family_name + ', ' + this.first_name;
-    });
-
-// Виртуальное свойство - URL автора
-UserSchema
-    .virtual('url')
-    .get(function () {
-        return '/catalog/author/' + this._id;
-    });
 
 //Export model
 module.exports = mongoose.model('User', UserSchema);
