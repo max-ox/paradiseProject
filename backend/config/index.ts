@@ -9,6 +9,7 @@ module.exports = {
     // Database
     db_connection_str: database.dialect+'://' + database.host + '/' + database.db_name,
 
+
     port: process.env.PORT || DEFAULT_HTTP_PORT,
 
     // // MailService
