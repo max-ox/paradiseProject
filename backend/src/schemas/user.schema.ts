@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var UserSchema = new Schema(
+export const  UserSchema = new Schema(
     {
         login: {type: String, required: true, max: 30},
         nickname: {type: String, required: true, max: 30},
@@ -20,6 +20,3 @@ var UserSchema = new Schema(
         rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"}
     }
 );
-
-//Export model
-module.exports = mongoose.model('User', UserSchema);
