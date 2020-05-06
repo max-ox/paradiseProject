@@ -10,29 +10,6 @@ export class UserController {
 
     constructor(private userService: UserService) { }
 
-    @Get('posts')
-    async getPosts(@Res() res) {
-        const posts = await this.userService.getUsers();
-        return res.status(HttpStatus.OK).json(posts);
-    }
-
-    @Get('post/:postID')
-    async getPost(@Res() res, @Param('postID', new ValidateObjectId()) postID) {
-        const post = await this.userService.getUser(postID);
-        if (!post) throw new NotFoundException('Post does not exist!');
-        return res.status(HttpStatus.OK).json(post);
-
-    }
-
-    @Post('/post')
-    async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {
-        const newPost = await this.userService.addPost(createPostDTO);
-        return res.status(HttpStatus.OK).json({
-            message: "Post has been submitted successfully!",
-            post: newPost
-        })
-    }
-
     @Post('/auth')
     async auth(@Res() res, @Body() registerDTO: RegisterDTO) {
         const newUser = await this.userService.addUser(registerDTO);

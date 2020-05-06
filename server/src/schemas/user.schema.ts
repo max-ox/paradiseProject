@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 export const  UserSchema = new Schema(
     {
-        login: {type: String, required: true, max: 30},
-        nickname: {type: String, required: true, max: 30},
-        email: {type: String, required: true, max: 100},
-        password: {type: String, required: true, max: 100},
-        link_for_connect: {type: String, required: true},
-        its_pin: {type: String, required: true, max: 5},
+        login: {type: String, max: 30},
+        nickname: {type: String, max: 30},
+        email: {type: String, max: 100},
+        password: {type: String, max: 100},
+        link_for_connect: {type: String},
+        its_pin: {type: String, max: 5},
         achievements: [
             {
                 type: mongoose.Schema.Types.ObjectId,
