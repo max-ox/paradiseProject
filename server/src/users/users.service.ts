@@ -23,6 +23,11 @@ export class UsersService {
                 username: 'maria',
                 password: 'guess',
             },
+            {
+                userId: 4,
+                username: '123@123',
+                password: '123',
+            },
         ];
     }
 
