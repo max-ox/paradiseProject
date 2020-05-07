@@ -17,10 +17,14 @@ export class LoginService {
   }
 
   getProfile(result){
+    console.log('result.auth_token}', result.access_token)
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${result.auth_token}`
+      'Content-Type' : 'application/json; charset=utf-8',
+      'Accept'       : 'application/json',
+      'Authorization': `Bearer ${result.access_token}`
     })
+
+    console.log('headers', headers)
     return this.http.get('/api/profile', { headers: headers })
   }
 
