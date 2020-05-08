@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit {
     if(this.user.username && this.user.password) {
       this.loginService.validateLogin(this.user).subscribe(result => {
         console.log('result is ', result);
+        this.loginService.getProfile(result).subscribe(result => {
+          console.log('result is ', result);
+        }, error => {
+          console.log('error is ', error);
+        });
       }, error => {
         console.log('error is ', error);
       });
@@ -30,4 +35,5 @@ export class LoginComponent implements OnInit {
       alert('enter user name and password');
     }
   }
+
 }
