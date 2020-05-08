@@ -15,13 +15,5 @@ export class UsersService {
             .findOne({email})
             .exec();
         return user;
-        // return this.user.find(user => user.username === username);
     }
-    //
-    // async getPost(postID): Promise<Post> {
-    //     const post = await this.postModel
-    //         .findById(postID)
-    //         .exec();
-    //     return post;
-    // }
 }
