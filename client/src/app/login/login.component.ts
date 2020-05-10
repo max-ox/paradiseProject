@@ -8,16 +8,12 @@ import { User } from '../models/user.model';
   styleUrls: ['./login.component.css'],
   providers: [ LoginService ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public user: User;
 
   constructor(private loginService: LoginService) {
     this.user = new User();
   }
-
-  ngOnInit(): void {
-  }
-
 
   validateLogin() {
     if(this.user.username && this.user.password) {
