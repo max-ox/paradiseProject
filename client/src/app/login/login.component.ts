@@ -16,7 +16,7 @@ export class LoginComponent {
   }
 
   validateLogin() {
-    if(this.user.username && this.user.password) {
+    if(this.user.email && this.user.password) {
       this.loginService.validateLogin(this.user).subscribe(result => {
         console.log('result is ', result);
         this.loginService.getProfile(result).subscribe(result => {
@@ -28,7 +28,7 @@ export class LoginComponent {
         console.log('error is ', error);
       });
     } else {
-      alert('enter user name and password');
+      alert('enter email and password');
     }
   }
 

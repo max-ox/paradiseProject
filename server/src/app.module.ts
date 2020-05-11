@@ -23,7 +23,6 @@ import configuration from './config/index';
       }),
       inject: [ConfigService]
     }),
-        //.forRoot(configuration().db_connection_str, { useNewUrlParser: true }),
     AuthModule,
     UsersModule,
   ],

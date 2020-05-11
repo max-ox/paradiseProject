@@ -8,8 +8,8 @@ export class LoginService {
   constructor(private http: HttpClient){}
 
   validateLogin(user: User){
-    return this.http.post('/api/register',{
-      email : user.username,
+    return this.http.post('/api/auth/login',{
+      email : user.email,
       password : user.password
     })
   }
