@@ -22,8 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
         { path: '', pathMatch: 'full', redirectTo: 'welcome' },
         { path: 'login', component: LoginComponent },
         { path: 'welcome', component: HomeComponent }
-        ]
-    )
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

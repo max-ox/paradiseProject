@@ -1,16 +1,28 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 
-// var config = require('./config');
+import configuration from './config/index';
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/paradiseDB', { useNewUrlParser: true }),
-    UserModule,
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get('db_connection_str'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService]
+    }),
     AuthModule,
     UsersModule,
   ],
