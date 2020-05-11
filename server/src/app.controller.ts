@@ -27,7 +27,6 @@ export class AppController {
   @UseFilters(AllExceptionsFilter)
   @Post('register')
   register(@Request() req)  {
-    console.log('register url')
     return this.usersService.create(req.body)
   }
 }

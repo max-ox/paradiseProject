@@ -18,7 +18,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
             exception instanceof HttpException
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
-        console.log('status', status)
         /**
          * @description Exception json response
          * @param message
@@ -34,7 +33,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
         // Throw an exceptions for either
         // MongoError, ValidationError, TypeError, CastError and Error
-        console.log('exception', exception);
         if (exception.message) {
             responseMessage("Error", exception.message);
         } else {

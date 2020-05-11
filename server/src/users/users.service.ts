@@ -9,22 +9,11 @@ export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        console.log('create start')
         const createdUser = new this.userModel(createUserDto);
-        return createdUser.save()
-        //     .then( (user, err) => {
-        //     if(err) {
-        //         return err
-        //     }
-        //    console.log('err', err);
-        //    console.log('user', user);
-        //    return user;
-        // });
-
+        return createdUser.save();
     }
 
     async findOne(email: string): Promise<User | undefined> {
-
         const user = await this.userModel
             .findOne({email})
             .exec();
