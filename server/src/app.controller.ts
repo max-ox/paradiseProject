@@ -1,11 +1,16 @@
-import { Controller, Request, Post, Get, UseGuards } from '@nestjs/common';
+import { Controller, Request, Post, Get, UseGuards, UseFilters } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
+import { UsersService } from './users/users.service';
+import { AllExceptionsFilter } from './filters/all-exception.filter';
 
 @Controller('api')
 export class AppController {
-  constructor(private authService: AuthService) {}
+  constructor(
+      private authService: AuthService,
+      private usersService: UsersService
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
@@ -16,8 +21,12 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req)  {
-
-    console.log('req', req)
     return req.user;
+  }
+
+  @UseFilters(AllExceptionsFilter)
+  @Post('register')
+  register(@Request() req)  {
+    return this.usersService.create(req.body)
   }
 }
