@@ -1,12 +1,18 @@
 <form class="form-signup">
-  <h2 class="form-signin-heading">Please sign up</h2>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Sign in</button>
+  <h2 class="form-signin-heading">Registration</h2>
+  <label for="inputEmail" class="sr-only">login</label>
+  <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" required autofocus>
+  <label class="error-message">Enter your email address in this field.</label>
+  <label for="inputPassword" class="sr-only">password</label>
+  <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" required>
+  <label for="inputConfirmPassword" class="sr-only">confirm password</label>
+  <input name="confirmpassword" [(ngModel)] = "user.confirmPassword" type="password" id="inputConfirmPassword" class="form-control" required>
+  <label for="inputNickname" class="sr-only">nickname</label>
+  <input name="nickname" [(ngModel)] = "user.nickname" type="password" id="inputNickname" class="form-control" required>
+  <label class="error-message">A uniquie name by which you will be known to other commanders</label>
+  <label for="inputITSPIN" class="sr-only">its pin</label>
+  <input name="itspin" [(ngModel)] = "user.confirmPassword" type="password" id="inputITSPIN" class="form-control">
+  <label for="inputFaction" class="sr-only">faction</label>
+  <input name="itspin" [(ngModel)] = "user.confirmPassword" type="password" id="inputFaction" class="form-control">
+  <button class="btn btn-lg btn-primary btn-block" (click)="validateRegister();" type="button">Sign up</button>
 </form>
