@@ -3,20 +3,19 @@ import { FormBuilder } from "@angular/forms";
 import {User} from '../models/user.model';
 import {Faction} from '../models/faction.model';
 import {FactionService} from '../services/faction.service';
-import {LoginService} from '../login/login.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [ FactionService ]
 })
 
 export class RegisterComponent implements OnInit {
   public user: User;
-  public factionService: FactionService;
   oppoSuits: any = ['Men', 'Women', 'Boys', 'Inspiration']
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public factionService: FactionService) {
     this.user = new User();
   }
 

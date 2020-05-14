@@ -8,7 +8,12 @@ export class FactionService {
   constructor(private http: HttpClient){}
 
   getFactions(){
-    return this.http.get('/factions')
+    const headers = new HttpHeaders({
+      'Cache-Control' : 'no-cache, no-store, must-revalidate'
+    })
+
+    console.log('headers', headers)
+    return this.http.get('/api/factions', { headers: headers })
   }
 
 }
