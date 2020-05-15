@@ -9,6 +9,6 @@ export class RegisterService {
   constructor(private http: HttpClient){}
 
   registration(user: User){
-    return this.http.post('/api/auth/registration',{user})
+    return this.http.post('/api/registration',{user})
   }
 }

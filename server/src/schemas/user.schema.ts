@@ -16,7 +16,7 @@ export const  UserSchema = new Schema(
                 ref: "Achievement"
             }
         ],
-        fraction: {type: mongoose.Schema.Types.ObjectId, ref: "Fraction"},
+        faction: {type: mongoose.Schema.Types.ObjectId, ref: "Faction"},
         rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"}
     }
 );

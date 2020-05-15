@@ -27,9 +27,10 @@ export class AppController {
   }
 
   @UseFilters(AllExceptionsFilter)
-  @Post('register')
+  @Post('registration')
   register(@Request() req)  {
-    return this.usersService.create(req.body)
+    console.log('registration')
+    return this.usersService.create(req.body.user)
   }
 
   @Get('factions')
