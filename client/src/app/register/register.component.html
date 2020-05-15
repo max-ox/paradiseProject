@@ -1,12 +1,81 @@
+<!--<form class="form-signup" [formGroup]="registraionForm">-->
 <form class="form-signup">
-  <h2 class="form-signin-heading">Please sign up</h2>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
+  <h2 class="form-signin-heading">Registration</h2>
+  <div>
+    <label for="inputEmail" class="sr-only">login</label>
+    <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" required autofocus>
+    <div *ngIf="user.email.invalid && (user.email.dirty || user.email.touched)"
+         class="alert alert-danger">
+      <div *ngIf="user.email.errors.required">
+        field is required
+      </div>
+    </div>
+    <small>Enter your email address in this field.</small>
   </div>
-  <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Sign in</button>
+  <div>
+    <label for="inputPassword" class="sr-only">password</label>
+    <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" required>
+    <div *ngIf="user.password.invalid && (user.password.dirty || user.password.touched)"
+         class="alert alert-danger">
+      <div *ngIf="user.password.errors.required">
+        field is required
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for="inputConfirmPassword" class="sr-only">confirm password</label>
+    <input name="confirmpassword" [(ngModel)] = "user.confirmPassword" type="password" id="inputConfirmPassword" class="form-control" required>
+    <div *ngIf="(user.password.dirty || user.password.touched) &&
+        (user.confirmPassword.dirty || user.confirmPassword.touched) &&
+        user.password != user.confirmPassword"
+         class="alert alert-danger">
+      <div *ngIf="user.email.errors.required">
+        password must match
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for="inputNickname" class="sr-only">nickname</label>
+    <input name="nickname" [(ngModel)] = "user.nickname" type="text" id="inputNickname" class="form-control" required>
+    <div *ngIf="(user.nickname.dirty || user.nickname.touched)"
+         class="alert alert-danger">
+      <div *ngIf="user.nickname.errors.required">
+        field is required
+      </div>
+    </div>
+    <small>A uniquie name by which you will be known to other commanders</small>
+  </div>
+  <div>
+    <label for="inputITSPIN" class="sr-only">its pin</label>
+    <input name="itspin" [(ngModel)] = "user.itsPIN" type="text" id="inputITSPIN" class="form-control">
+  </div>
+  <div>
+    <label for="inputFaction" class="sr-only">faction</label>
+    <select id="inputFaction" [(ngModel)]="user.faction" [ngModelOptions]="{standalone: true}" >
+      <option disabled >Select faction</option>
+      <option *ngFor="let faction of factions" [ngValue]="faction._id">{{faction.name}}</option>
+    </select>
+    <div *ngIf="(user.faction.dirty || user.faction.touched)"
+         class="alert alert-danger">
+      <div *ngIf="user.faction.errors.required">
+        field is required
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for="inputLink" class="sr-only">contact link</label>
+    <input name="link" [(ngModel)] = "user.contactLink" type="text" id="inputLink" class="form-control" required>
+    <div *ngIf="(user.contactLink.dirty || user.contactLink.touched)"
+         class="alert alert-danger">
+      <div *ngIf="user.contactLink.errors.required">
+        field is required
+      </div>
+    </div>
+    <small>Link to a bla bla</small>
+  </div>
+  <div>
+    checkbox
+  </div>
+<!--  <button class="btn btn-lg btn-primary btn-block" [disabled]="registraionForm.invalid" (click)="validateRegister();" type="button">continue</button>-->
+  <button class="btn btn-lg btn-primary btn-block" (click)="validateRegister();" type="button">continue</button>
 </form>

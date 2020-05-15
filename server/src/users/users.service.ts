@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
+
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../interfaces/user.interface';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -14,9 +15,6 @@ export class UsersService {
     }
 
     async findOne(email: string): Promise<User | undefined> {
-        const user = await this.userModel
-            .findOne({email})
-            .exec();
-        return user;
+        return await this.userModel.findOne({ email });
     }
 }
