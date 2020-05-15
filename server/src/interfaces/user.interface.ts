@@ -8,4 +8,5 @@ export interface User extends Document {
     readonly password: string;
     readonly link_for_connect: string
     readonly its_pin: string
+    comparePassword(candidatePassword: string): Promise<boolean>;
 }

@@ -5,5 +5,17 @@ export class CreateUserDto {
     readonly email: string;
 
     @IsNotEmpty()
-    readonly password: number;
+    readonly password: string;
+
+    @IsNotEmpty()
+    readonly nickname: string;
+
+    @IsNotEmpty()
+    readonly itsPIN: string;
+
+    @IsNotEmpty()
+    readonly contactLink: string;
+
+    @IsNotEmpty()
+    readonly faction: string;
 }
