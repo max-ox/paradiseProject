@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
+
+import { AuthGuard } from "./auth/auth.guard";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,8 +29,9 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
         { path: '', pathMatch: 'full', redirectTo: 'welcome' },
-        { path: 'authorization', component: LoginComponent },
-        { path: 'registration', component: RegisterComponent },
+        { path: 'log-in', component: LoginComponent },
+        { path: 'sign-up', component: RegisterComponent },
+        { path: 'profile', component: ProfileComponent },
         { path: 'welcome', component: HomeComponent }
     ])
   ],

@@ -7,6 +7,7 @@ export class User {
     this.itsPIN = '';
     this.faction = '';
     this.contactLink = '';
+
   }
   public email;
   public password;

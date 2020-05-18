@@ -4,6 +4,8 @@ import {User} from '../models/user.model';
 import {Faction} from '../models/faction.model';
 import {FactionService} from '../services/faction.service';
 import {RegisterService} from './register.service';
+import {AuthService} from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,9 +19,13 @@ export class RegisterComponent implements OnInit {
   // public registraionForm: any;
   public factions: any;
 
-  constructor(public fb: FormBuilder,
-              public factionService: FactionService,
-              private registerService: RegisterService) {
+  constructor(
+    public fb: FormBuilder,
+    public factionService: FactionService,
+    private registerService: RegisterService,
+    public authService: AuthService,
+    public router: Router
+  ) {
     this.user = new User();
   }
 
@@ -36,14 +42,20 @@ export class RegisterComponent implements OnInit {
   }
 
   validateRegister() {
-    // console.log('registraionForm', this.registraionForm.status)
-    if(this.user.email && this.user.password) {
-      this.registerService.registration(this.user).subscribe(result => {
-        console.log('result is ', result);
-      }, error => {
-        console.log('error is ', error);
-      });
-    }
-    console.log(this.user);
+    this.authService.signUp(this.user).subscribe((res) => {
+      if (res.result) {
+        // this.signupForm.reset()
+        this.router.navigate(['log-in']);
+      }
+    })
+    // // console.log('registraionForm', this.registraionForm.status)
+    // if(this.user.email && this.user.password) {
+    //   this.registerService.registration(this.user).subscribe(result => {
+    //     console.log('result is ', result);
+    //   }, error => {
+    //     console.log('error is ', error);
+    //   });
+    // }
+    // console.log(this.user);
   }
 }
