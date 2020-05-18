@@ -30,12 +30,15 @@ export class AuthService {
 
   // Sign-in
   signIn(user: User) {
-    return this.http.post<any>(`/signin`, user)
+    return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
-        this.getUserProfile(res._id).subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg._id]);
+        localStorage.setItem('access_token', res.access_token)
+        this.getUserProfile(res.userId).subscribe((res) => {
+          console.log('res', res)
+          if(res && res.user) {
+            this.currentUser = res.user;
+            this.router.navigate(['/profile/' + res.user._id]);
+          }
         })
       })
   }
@@ -58,7 +61,13 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `/user-profile/${id}`;
+    let api = `/api/profile/${id}`;
+    this.headers['Authorization'] = this.getToken();
+    //   = new HttpHeaders({;
+    //   'Content-Type' : 'application/json; charset=utf-8',
+    //   'Accept'       : 'application/json',
+    //   'Authorization': `Bearer ${result.access_token}`
+    // })
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}

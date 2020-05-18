@@ -1,4 +1,4 @@
-import { Controller, Request, Res, Post, Get, UseGuards, UseFilters, HttpStatus } from '@nestjs/common';
+import { Controller, Request, Res, Post, Get, UseGuards, UseFilters, HttpStatus, Param } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -21,16 +21,18 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req)  {
-    return req.user;
+  @Get('profile/:id')
+  getProfile(@Request() req, @Param('id') id)  {
+    console.log('id', id);
+    return {user: this.usersService.findByID(id) }
+    // return req.user;
   }
 
   @UseFilters(AllExceptionsFilter)
   @Post('registration')
   register(@Request() req)  {
     console.log('registration')
-    return this.usersService.create(req.body.user)
+    return {result: this.usersService.create(req.body.user) }
   }
 
   @Get('factions')

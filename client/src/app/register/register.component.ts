@@ -45,7 +45,9 @@ export class RegisterComponent implements OnInit {
     this.authService.signUp(this.user).subscribe((res) => {
       if (res.result) {
         // this.signupForm.reset()
-        this.router.navigate(['log-in']);
+        this.authService.signIn(this.user);
+        //.subscribe((res) => {});
+        // this.router.navigate(['log-in']);
       }
     })
     // // console.log('registraionForm', this.registraionForm.status)
