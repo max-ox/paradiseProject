@@ -32,15 +32,16 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
-        console.log('res', res);
         localStorage.setItem('access_token', res.access_token)
-        this.getUserProfile(res.userId).subscribe((res) => {
-          console.log('res', res)
-          if(res && res.user) {
-            this.currentUser = res.user;
-            this.router.navigate(['/profile/' + res.user._id]);
-          }
-        })
+        localStorage.setItem('userId', res.userId)
+        this.router.navigate(['/profile/' + res.userId]);
+        // this.getUserProfile(res.userId).subscribe((res) => {
+        //   console.log('res', res)
+        //   if(res && res.user) {
+        //     this.currentUser = res.user;
+        //
+        //   }
+        // })
       })
   }
 
@@ -67,6 +68,7 @@ export class AuthService {
 
     return this.http.get(api, { headers: header }).pipe(
       map((res: Response) => {
+        console.log('getUserProfile res, ', res)
         return res || {}
       }),
       catchError(this.handleError)

@@ -16,13 +16,17 @@ export class ProfileComponent implements OnInit {
     public authService: AuthService,
     private actRoute: ActivatedRoute
   ) {
-    let id = this.actRoute.snapshot.paramMap.get('id');
-    this.authService.getUserProfile(id).subscribe(res => {
-      this.currentUser = res.msg;
-    })
+    // let id = this.actRoute.snapshot.paramMap.get('id');
+    // this.authService.getUserProfile(id).subscribe(res => {
+    //   this.currentUser = res.user;
+    // })
   }
 
   ngOnInit(): void {
+    let id = this.actRoute.snapshot.paramMap.get('id');
+    this.authService.getUserProfile(id).subscribe(res => {
+      this.currentUser = res.user;
+    })
   }
 
 }

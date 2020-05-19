@@ -18,7 +18,7 @@ import configuration from './config/index';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        uri: config.get('db_connection_str'),
+        uri: config.get('dbConnectionStr'),
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),

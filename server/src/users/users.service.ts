@@ -10,7 +10,6 @@ export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        console.log('createUserDto', createUserDto);
         const createdUser = new this.userModel(createUserDto);
         return createdUser.save();
     }
@@ -20,7 +19,7 @@ export class UsersService {
     }
 
     async findByID(id: string): Promise<User | undefined> {
-        console.log('findByID id', id)
-        return await this.userModel.findById({ _id: id });
+        const createdUser = await this.userModel.findOne({ _id: id });
+        return createdUser;
     }
 }

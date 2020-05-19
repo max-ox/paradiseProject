@@ -23,15 +23,14 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('profile/:id')
   getProfile(@Request() req, @Param('id') id)  {
-    console.log('id', id);
-    return {user: this.usersService.findByID(id) }
-    // return req.user;
+    return this.usersService.findByID(id).then(user => {
+      return {user}
+    })
   }
 
   @UseFilters(AllExceptionsFilter)
   @Post('registration')
   register(@Request() req)  {
-    console.log('registration')
     return {result: this.usersService.create(req.body.user) }
   }
 
