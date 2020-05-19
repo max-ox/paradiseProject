@@ -31,7 +31,7 @@ import { AuthGuard } from "./auth/auth.guard";
         { path: '', pathMatch: 'full', redirectTo: 'welcome' },
         { path: 'log-in', component: LoginComponent },
         { path: 'sign-up', component: RegisterComponent },
-        { path: 'profile', component: ProfileComponent },
+        { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]  },
         { path: 'welcome', component: HomeComponent }
     ])
   ],

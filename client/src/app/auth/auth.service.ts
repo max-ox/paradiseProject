@@ -30,13 +30,18 @@ export class AuthService {
 
   // Sign-in
   signIn(user: User) {
-    return this.http.post<any>(`/signin`, user)
+    return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
-        this.getUserProfile(res._id).subscribe((res) => {
-          this.currentUser = res;
-          this.router.navigate(['user-profile/' + res.msg._id]);
-        })
+        localStorage.setItem('access_token', res.access_token)
+        localStorage.setItem('userId', res.userId)
+        this.router.navigate(['/profile/' + res.userId]);
+        // this.getUserProfile(res.userId).subscribe((res) => {
+        //   console.log('res', res)
+        //   if(res && res.user) {
+        //     this.currentUser = res.user;
+        //
+        //   }
+        // })
       })
   }
 
@@ -58,13 +63,24 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `/user-profile/${id}`;
-    return this.http.get(api, { headers: this.headers }).pipe(
+    let api = `/api/profile/${id}`;
+    const header = this.headers.append('Authorization', `Bearer ${this.getToken()}`);
+
+    return this.http.get(api, { headers: header }).pipe(
       map((res: Response) => {
+        console.log('getUserProfile res, ', res)
         return res || {}
       }),
       catchError(this.handleError)
     )
+
+
+    // return this.http.get(api, { headers: this.headers }).pipe(
+    //   map((res: Response) => {
+    //     return res || {}
+    //   }),
+    //   catchError(this.handleError)
+    // )
   }
 
   // Error

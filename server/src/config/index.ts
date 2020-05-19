@@ -4,7 +4,7 @@ const DEFAULT_HTTP_PORT = 3000;
 const DB_SETTINGS = {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    db_name:  process.env.DATABASE_NAME || 'test',
+    dbName:  process.env.DATABASE_NAME || 'test',
     host:  process.env.DATABASE_HOST || 'localhost',
     port:  process.env.DATABASE_PORT || '27017',
     dialect: 'mongodb'
@@ -26,6 +26,8 @@ export default () => ({
     refreshTokenLifetimeDays: parseInt(process.env.REFRESH_TOKEN_LIFETIME_DAYS) || DEFAULT_REFRESH_TOKEN_LIFETIME_DAYS,
 
     port: parseInt(process.env.PORT, 10) || DEFAULT_HTTP_PORT,
-    db_connection_str: `${DB_SETTINGS.dialect}://${DB_SETTINGS.username ? (DB_SETTINGS.username+':'+DB_SETTINGS.password+'@') : ''}${DB_SETTINGS.host}:${DB_SETTINGS.port}/${DB_SETTINGS.db_name}`,
+    dbConnectionStr: `${DB_SETTINGS.dialect}://${DB_SETTINGS.username ? (DB_SETTINGS.username+':'+DB_SETTINGS.password+'@') : ''}${DB_SETTINGS.host}:${DB_SETTINGS.port}/${DB_SETTINGS.dbName}`,
+
+
 
 });
