@@ -19,7 +19,8 @@ export class UsersService {
     }
 
     async findByID(id: string): Promise<User | undefined> {
-        const createdUser = await this.userModel.findOne({ _id: id });
+        const createdUser = await this.userModel.findOne({ _id: id })
+          .populate('achievements').populate('faction').populate('rank');
         return createdUser;
     }
 }

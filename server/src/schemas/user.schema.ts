@@ -11,8 +11,8 @@ export const  UserSchema = new Schema(
         nickname: {type: String, max: 30},
         email: {type: String, max: 100, unique : true, required : true},
         password: {type: String, max: 100},
-        link_for_connect: {type: String},
-        its_pin: {type: String, max: 5},
+        contactLink: {type: String},
+        itsPIN: {type: String, max: 5},
         achievements: [
             {
                 type: mongoose.Schema.Types.ObjectId,
