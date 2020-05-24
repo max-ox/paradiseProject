@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   public user: User;
   // public registraionForm: any;
   public factions: any;
+  public isValidUser = false;
 
   constructor(
     public fb: FormBuilder,
@@ -42,14 +43,33 @@ export class RegisterComponent implements OnInit {
   }
 
   validateRegister() {
-    this.authService.signUp(this.user).subscribe((res) => {
-      if (res.result) {
-        // this.signupForm.reset()
-        this.authService.signIn(this.user);
-        //.subscribe((res) => {});
-        // this.router.navigate(['log-in']);
-      }
-    })
+    if(this.user.email &&
+      (this.user.password === this.user.confirmPassword) &&
+      this.user.password &&
+      this.user.nickname &&
+      this.user.contactLink &&
+      this.user.faction) {
+        this.authService.signUp(this.user).subscribe((res) => {
+          if (res.user) {
+            // this.signupForm.reset()
+            this.authService.signIn(this.user);
+            //.subscribe((res) => {});
+            // this.router.navigate(['log-in']);
+          } else {
+
+          }
+        })
+    }
+
+    console.log('this.user', this.user);
+    // this.authService.signUp(this.user).subscribe((res) => {
+    //   if (res.result) {
+    //     // this.signupForm.reset()
+    //     this.authService.signIn(this.user);
+    //     //.subscribe((res) => {});
+    //     // this.router.navigate(['log-in']);
+    //   }
+    // })
     // // console.log('registraionForm', this.registraionForm.status)
     // if(this.user.email && this.user.password) {
     //   this.registerService.registration(this.user).subscribe(result => {
