@@ -30,8 +30,9 @@ export class AppController {
 
   @UseFilters(AllExceptionsFilter)
   @Post('registration')
-  register(@Request() req)  {
-    return {result: this.usersService.create(req.body.user) }
+  async register(@Request() req, @Res() res)  {
+    const user = await this.usersService.create(req.body.user);
+    return {user}
   }
 
   @Get('factions')

@@ -8,7 +8,7 @@ const SALT_WORK_FACTOR = 10;
 export const  UserSchema = new Schema(
     {
         login: {type: String, max: 30},
-        nickname: {type: String, max: 30},
+        nickname: {type: String, max: 30, unique : true, required : true},
         email: {type: String, max: 100, unique : true, required : true},
         password: {type: String, max: 100},
         contactLink: {type: String},
@@ -20,12 +20,12 @@ export const  UserSchema = new Schema(
             }
         ],
         faction: {type: mongoose.Schema.Types.ObjectId, ref: "Faction"},
-        rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"}
+        rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank", required: false}
     }
 );
 UserSchema.pre('save', function(next) {
     let user = this;
-
+//todo: add validation user
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
     // generate a salt
