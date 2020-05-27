@@ -18,4 +18,6 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     readonly faction: string;
+
+    readonly rank: string;
 }
