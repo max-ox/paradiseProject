@@ -22,6 +22,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
          * @description Exception json response
          * @param message
          */
+
         const responseMessage = (type, message) => {
             response.status(status).json({
                 statusCode: status,
@@ -31,12 +32,14 @@ export class AllExceptionsFilter implements ExceptionFilter {
             });
         };
 
-        console.log('exception', exception);
-
         if (exception.name) {
             responseMessage(exception.name, exception.message);
         } else {
-            responseMessage("Error", exception.message);
+            if(exception.message) {
+                responseMessage("Error", exception.message);
+            } else {
+                responseMessage("Error", exception);
+            }
         }
     }
 }

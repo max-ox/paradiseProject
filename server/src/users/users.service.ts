@@ -9,9 +9,27 @@ import { CreateUserDto } from '../dto/create-user.dto';
 export class UsersService {
     constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
-        const createdUser = new this.userModel(createUserDto);
-        return createdUser.save();
+    async create(createUserDto: CreateUserDto): Promise<User|any> {
+        const isNicknameExist = await this.userModel.find({nickname : createUserDto.nickname}, (err, docs) => {
+            if (!docs.length){
+                return false;
+            }else{
+                return true;
+            }
+        })
+        const isEmailExist = await this.userModel.find({email: createUserDto.email}, (err, docs) => {
+            if (!docs.length){
+                return false;
+            }else{
+                return true;
+            }
+        });
+        if(!isNicknameExist.length && !isEmailExist.length) {
+            const createdUser = new this.userModel(createUserDto);
+            return createdUser.save();
+        } else {
+            throw new Error(`User with this ${isNicknameExist.length ? 'Nickname,' : ''} ${isEmailExist.length ? 'email' : ''} is already exist`)
+        }
     }
 
     async findOne(email: string): Promise<User | undefined> {

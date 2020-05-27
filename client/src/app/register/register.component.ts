@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   public user: User;
   // public registraionForm: any;
   public factions: any;
-  public isValidUser = false;
+  public errorMessage = '';
 
   constructor(
     public fb: FormBuilder,
@@ -56,7 +56,8 @@ export class RegisterComponent implements OnInit {
             //.subscribe((res) => {});
             // this.router.navigate(['log-in']);
           } else {
-
+            this.errorMessage = res.errorMessage
+            // todo: show error message
           }
         })
     }

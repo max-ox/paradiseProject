@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { User } from '../interfaces/user.interface';
 
 const Schema = mongoose.Schema;
 
@@ -8,7 +9,15 @@ const SALT_WORK_FACTOR = 10;
 export const  UserSchema = new Schema(
     {
         login: {type: String, max: 30},
-        nickname: {type: String, max: 30, unique : true, required : true},
+        nickname: {type: String, max: 30, unique : true, required : true,
+          validate: {
+            validator: function(v, cb) {
+              User.find({nickname: v}, function(err,docs){
+                cb(docs.length == 0);
+              });
+            },
+            message: 'User already exists!'
+          }},
         email: {type: String, max: 100, unique : true, required : true},
         password: {type: String, max: 100},
         contactLink: {type: String},
@@ -25,8 +34,9 @@ export const  UserSchema = new Schema(
 );
 UserSchema.pre('save', function(next) {
     let user = this;
-//todo: add validation user
-    // only hash the password if it has been modified (or is new)
+//todo: find user by email and nickname/ if exist - return error
+
+      // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
     // generate a salt
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
@@ -45,3 +55,6 @@ UserSchema.pre('save', function(next) {
 UserSchema.methods.comparePassword = async function(candidatePassword: string) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
+
+
+const User = mongoose.model('User' , UserSchema);
