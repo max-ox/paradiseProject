@@ -15,4 +15,13 @@ describe('FactionService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+
+  it('should return array of factions', () => {
+    const result = ['test'];
+    jest.spyOn(service, 'getFactions').mockImplementation(() => result);
+
+    expect(await catsController.findAll()).toBe(result);
+
+  });
 });
