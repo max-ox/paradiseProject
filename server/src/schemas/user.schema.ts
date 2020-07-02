@@ -21,6 +21,7 @@ export const  UserSchema = new Schema(
         email: {type: String, max: 100, unique : true, required : true},
         password: {type: String, max: 100},
         contactLink: {type: String},
+        vkId: {type: String},
         itsPIN: {type: String, max: 5},
         achievements: [
             {

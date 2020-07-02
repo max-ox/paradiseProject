@@ -32,6 +32,18 @@ export class UsersService {
         }
     }
 
+    async findOrCreate(profile): Promise<User | undefined> {
+        return await this.userModel.findOrCreate({ vkId: profile.id }, function (err, user) {
+            // if(err) {
+            //
+            // } else {
+            //
+            // }
+            return user;
+                // return (err, user);
+            });
+    }
+
     async findOne(email: string): Promise<User | undefined> {
         return await this.userModel.findOne({ email });
     }

@@ -17,29 +17,28 @@ export class AuthService {
 
         if (await user.comparePassword(pass)) {
             return user;
-            // const tokenPayload: JwtPayload = { userId: user.id };
-            // const token = this.jwtService.sign(tokenPayload);
-            // return ({ token, userId: user.id, status: LoginStatus.success });
         } else {
             throw new UnauthorizedException('Invalid Username or Password');
         }
-        // await user.comparePassword(pass, function(err, isMatch) {
-        //     console.log('comparePassword', isMatch)
-        //     if(isMatch) {
-        //         return user;
-        //     } else {
-        //         throw new UnauthorizedException()
-        //     }
-        // });
         return user;
     }
 
     async login(user: any) {
-        console.log('user', user);
         const payload = { email: user.email, sub: user._id };
         return {
             access_token: this.jwtService.sign(payload),
             userId: user._id
         };
+    }
+
+    vkLogin(req) {
+        if (!req.user) {
+            return 'No user from google'
+        }
+
+        return {
+            message: 'User information from google',
+            user: req.user
+        }
     }
 }

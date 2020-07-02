@@ -45,6 +45,19 @@ export class AuthService {
       })
   }
 
+  vkLogin() {
+    let api = `/api/auth/vk`;
+    console.log('dfghjk')
+    return this.http.get(api)
+    //   .pipe(
+    //   map((res: Response) => {
+    //     console.log('vkLogin res, ', res)
+    //     return res || {}
+    //   }),
+    //   catchError(this.handleError)
+    // )
+  }
+
   getToken() {
     return localStorage.getItem('access_token');
   }

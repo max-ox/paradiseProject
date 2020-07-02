@@ -19,6 +19,10 @@ export default () => ({
 
     nodeAuthSecret: process.env.NODE_AUTH_SECRET,
 
+    vkAppId: process.env.VKONTAKTE_APP_ID,
+    vkAppSecret: process.env.VKONTAKTE_APP_SECRET,
+    vkAppCallback: process.env.VKONTAKTE_APP_CALLBACK,
+
     frontendOrigin: process.env.FRONTEND_ORIGIN,
 
     // smtpPort: process.env.SMTP_PORT || DEFAULT_SMTP_PORT,

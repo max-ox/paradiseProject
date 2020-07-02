@@ -4,4 +4,8 @@
   <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
   <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Sign in</button>
+
+  <div>
+    <button class="btn btn-lg btn-primary btn-block" (click)="vkLogin();" type="button">VK</button>
+  </div>
 </form>
