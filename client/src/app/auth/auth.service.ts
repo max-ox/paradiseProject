@@ -32,16 +32,10 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
+        localStorage.setItem('saved', new Date().getTime().toString())
         localStorage.setItem('access_token', res.access_token)
         localStorage.setItem('userId', res.userId)
         this.router.navigate(['/profile/' + res.userId]);
-        // this.getUserProfile(res.userId).subscribe((res) => {
-        //   console.log('res', res)
-        //   if(res && res.user) {
-        //     this.currentUser = res.user;
-        //
-        //   }
-        // })
       })
   }
 
@@ -51,6 +45,7 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
+    console.log('authToken', authToken);
     return (authToken !== null) ? true : false;
   }
 
@@ -74,13 +69,6 @@ export class AuthService {
       catchError(this.handleError)
     )
 
-
-    // return this.http.get(api, { headers: this.headers }).pipe(
-    //   map((res: Response) => {
-    //     return res || {}
-    //   }),
-    //   catchError(this.handleError)
-    // )
   }
 
   // Error
@@ -93,6 +81,7 @@ export class AuthService {
       // server-side error
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    this.doLogout();
     return throwError(msg);
   }
 }
