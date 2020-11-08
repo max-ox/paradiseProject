@@ -1,4 +1,4 @@
-var User = require('../models/user');
+var User = require('../DBmodels/user');
 
 // Показать список всех авторов.
 exports.author_list = function(req, res) {
