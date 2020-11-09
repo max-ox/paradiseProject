@@ -8,6 +8,7 @@ var logger = require('morgan');
 var passport = require('passport');
 
 var authObject = require('./auth/index');
+var dbObject = require('./db/index');
 var userObject = require('./user/index');
 
 var config = require('./config');
@@ -30,8 +31,6 @@ authObject.init()
 app.use('/auth', authObject.routers);
 // app.use('/users', userObject.routers);
 
-//todo: move to other file
-
 
 app.get('/', function(req, res) {
     //Here you have an access to req.user
@@ -42,12 +41,9 @@ app.get('/', function(req, res) {
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
 //Устанавливаем соединение с mongoose
-var mongoose = require('mongoose');
-mongoose.connect(connection_str, {useNewUrlParser: true,  useUnifiedTopology: true });
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+dbObject.init(connection_str)
 
 // error handler
 app.use(function(err, req, res, next) {
