@@ -1,6 +1,8 @@
 var createError = require('http-errors');
 var express = require('express');
 var expressSession = require('express-session');
+var MongoStore = require('connect-mongo')(session)
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -21,8 +23,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'nhbyflwfnm',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: require('mongoose').connection })
+}));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressSession({secret:'keyboard cat', resave: true, saveUninitialized: true}));
+// app.use(expressSession({secret:'keyboard cat', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -42,7 +50,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-//Устанавливаем соединение с mongoose
+//connect to mongoose
 dbObject.init(connection_str)
 
 // error handler

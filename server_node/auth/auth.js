@@ -2,6 +2,7 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const LocalStrategy = require('passport-local').Strategy
 var config = require('../config');
+var User = require('../db/models/user');
 
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 
@@ -12,17 +13,17 @@ const saltRounds = 10
 const myPlaintextPassword = 'my-password'
 const salt = bcrypt.genSaltSync(saltRounds)
 const passwordHash = bcrypt.hashSync(myPlaintextPassword, salt)
-
-const user = {
-    username: 'test-user',
-    passwordHash,
-    id: 1
-}
+//
+// const user = {
+//     username: 'test-user',
+//     passwordHash,
+//     id: 1
+// }
 
 function findUser (username, callback) {
-    if (username === user.username) {
-        return callback(null, user)
-    }
+    // if (username === user.username) {
+    //     return callback(null, user)
+    // }
     return callback(null)
 }
 
@@ -40,7 +41,9 @@ function initPassport () {
         {
             clientID:     config.VK_APP_ID,
             clientSecret: config.VK_APP_SECRET,
-            callbackURL:  config.VK_callbackURL
+            callbackURL:  config.VK_callbackURL,
+            scope: ['email'] ,
+            profileFields: ['email']
         },
         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
             console.log('myVerifyCallbackFn profile', profile)
@@ -49,9 +52,9 @@ function initPassport () {
             // Also we have user's `params` that contains email address (if set in
             // scope), token lifetime, etc.
             // Here, we have a hypothetical `User` class which does what it says.
-            // User.findOrCreate({ vkontakteId: profile.id })
-            //     .then(function (user) { done(null, user); })
-            //     .catch(done);
+            User.findOrCreate({ email: profile.email })
+                .then(function (user) { done(null, user); })
+                .catch(done);
         }
     ));
 
