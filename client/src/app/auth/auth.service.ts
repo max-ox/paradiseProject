@@ -54,31 +54,8 @@ export class AuthService {
         localStorage.setItem('access_token', user._id)
             localStorage.setItem('userId', user.userId)
             this.router.navigate(['/profile/' + user._id]);
-            // this.getUserProfile(res.userId).subscribe((res) => {
-            //   console.log('res', res)
-            //   if(res && res.user) {
-            //     this.currentUser = res.user;
-            //
-            //   }
-            // })
       }
-      //message will contain facebook user and details
     });
-
-    // return this.http.get<any>(`/api/auth/vkontakte`)
-    //   .subscribe((res: any) => {
-    //     console.log('res', res);
-    //     // localStorage.setItem('access_token', res.access_token)
-    //     // localStorage.setItem('userId', res.userId)
-    //     // this.router.navigate(['/profile/' + res.userId]);
-    //     // this.getUserProfile(res.userId).subscribe((res) => {
-    //     //   console.log('res', res)
-    //     //   if(res && res.user) {
-    //     //     this.currentUser = res.user;
-    //     //
-    //     //   }
-    //     // })
-    //   })
   }
 
   getToken() {
