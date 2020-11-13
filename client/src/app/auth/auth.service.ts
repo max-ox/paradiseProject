@@ -45,6 +45,19 @@ export class AuthService {
       })
   }
 
+  signInVK() {
+    window.open('/api/auth/vkontakte',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
+    let listener = window.addEventListener('message', (message) => {
+      if(message && message.data && message.data.user) {
+        const user = message.data.user;
+        console.log('message', message.data.user)
+        localStorage.setItem('access_token', user._id)
+            localStorage.setItem('userId', user.userId)
+            this.router.navigate(['/profile/' + user._id]);
+      }
+    });
+  }
+
   getToken() {
     return localStorage.getItem('access_token');
   }
@@ -63,7 +76,7 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `/api/profile/${id}`;
+    let api = `/api/user/${id}`;
     const header = this.headers.append('Authorization', `Bearer ${this.getToken()}`);
 
     return this.http.get(api, { headers: header }).pipe(
@@ -73,14 +86,6 @@ export class AuthService {
       }),
       catchError(this.handleError)
     )
-
-
-    // return this.http.get(api, { headers: this.headers }).pipe(
-    //   map((res: Response) => {
-    //     return res || {}
-    //   }),
-    //   catchError(this.handleError)
-    // )
   }
 
   // Error

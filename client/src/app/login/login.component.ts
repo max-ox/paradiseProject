@@ -30,4 +30,8 @@ export class LoginComponent {
     }
   }
 
+  loginVK() {
+    this.authService.signInVK()
+  }
+
 }

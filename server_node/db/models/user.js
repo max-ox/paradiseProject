@@ -1,0 +1,26 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var UserSchema = new Schema(
+    {
+        login: {type: String, required: true, max: 30},
+        nickname: {type: String, max: 30, unique : true, required : true},
+        email: {type: String, max: 100, unique : true, required : true},
+        password: {type: String, max: 100},
+        contactLink: {type: String, required: true},
+        itsPIN: {type: String, required: true, max: 5},
+        vkontakteId: {type: String, required: true, max:10},
+        achievements: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Achievement"
+            }
+        ],
+        fraction: {type: mongoose.Schema.Types.ObjectId, ref: "Fraction"},
+        rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"},
+        isActive: {type: Boolean},
+        isDeleted: {type: Boolean}
+    }
+);
+//Export model
+module.exports = mongoose.model('User', UserSchema);
