@@ -1,16 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session)
-
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var passport = require('passport');
 
 var authObject = require('./auth/index');
-var dbObject = require('./db/index');
 var userObject = require('./user/index');
 
 var config = require('./config');
@@ -36,8 +32,7 @@ app.all('/', function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-    //Here you have an access to req.user
-    res.json(req.user);
+    res.send(200);
 });
 app.get('/api/login', function(req, res) {
     //Here you have an access to req.user

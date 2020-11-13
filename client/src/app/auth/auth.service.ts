@@ -109,14 +109,6 @@ export class AuthService {
       }),
       catchError(this.handleError)
     )
-
-
-    // return this.http.get(api, { headers: this.headers }).pipe(
-    //   map((res: Response) => {
-    //     return res || {}
-    //   }),
-    //   catchError(this.handleError)
-    // )
   }
 
   // Error
