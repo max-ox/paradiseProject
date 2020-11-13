@@ -10,7 +10,7 @@ module.exports = {
     database,
     VK_APP_ID: '7516390',
     VK_APP_SECRET: 'FLl6SWz67OrGwVpXrkYZ',
-    VK_callbackURL : 'http://localhost:3000/auth/vkontakte/callback',
+    VK_callbackURL : 'http://localhost:3000/api/auth/vkontakte/callback',
 
     port: process.env.PORT || DEFAULT_HTTP_PORT,
 

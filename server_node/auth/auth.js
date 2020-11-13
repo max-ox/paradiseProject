@@ -13,30 +13,26 @@ const saltRounds = 10
 const myPlaintextPassword = 'my-password'
 const salt = bcrypt.genSaltSync(saltRounds)
 const passwordHash = bcrypt.hashSync(myPlaintextPassword, salt)
-//
-// const user = {
-//     username: 'test-user',
-//     passwordHash,
-//     id: 1
-// }
 
-function findUser (username, callback) {
-    // if (username === user.username) {
-    //     return callback(null, user)
-    // }
-    return callback(null)
+function findUser (id, callback) {
+    User.findById(id, function (err, user) {
+        console.log('findById user', user)
+        callback(err, user);
+    });
 }
 
 passport.serializeUser(function (user, cb) {
-    cb(null, user.username)
+    console.log('serializeUser user', user)
+    cb(null, user._id)
 })
 
-passport.deserializeUser(function (username, cb) {
-    findUser(username, cb)
+passport.deserializeUser(function (id, cb) {
+    console.log('deserializeUser id', id)
+    findUser(id, cb)
 })
+
 
 function initPassport () {
-
     passport.use(new VKontakteStrategy(
         {
             clientID:     config.VK_APP_ID,
@@ -47,14 +43,35 @@ function initPassport () {
         },
         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
             console.log('myVerifyCallbackFn profile', profile)
-            // Now that we have user's `profile` as seen by VK, we can
-            // use it to find corresponding database records on our side.
-            // Also we have user's `params` that contains email address (if set in
-            // scope), token lifetime, etc.
-            // Here, we have a hypothetical `User` class which does what it says.
-            User.findOrCreate({ email: profile.email })
-                .then(function (user) { done(null, user); })
-                .catch(done);
+            User.findOne({
+                'email':  profile.emails[0].value
+            }, function(err, user) {
+                console.log('err, user', err, user);
+                if (err) {
+                    return done(err);
+                }
+                //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+                if (!user) {
+                    user = new User({
+                        login: profile.displayName,
+                        nickname: profile.username,
+                        email: profile.emails[0].value,
+                        contactLink: profile.profileUrl,
+                        itsPIN: '0000',
+                        vkontakteId: profile.id,
+                        isActive: false
+                    });
+                    user.save(function(err) {
+
+                        if (err) console.log('user.save err ', err);
+                        return done(err, user);
+                    });
+                } else {
+                    console.log('found user user', user)
+                    //found user. Return
+                    return done(err, user);
+                }
+            });
         }
     ));
 
@@ -86,6 +103,7 @@ function initPassport () {
     ))
 
     passport.authenticationMiddleware = authenticationMiddleware
+    passport.findUser = findUser
 }
 
 module.exports = initPassport

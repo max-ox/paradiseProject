@@ -1,6 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
-var expressSession = require('express-session');
+var session = require('express-session');
 var MongoStore = require('connect-mongo')(session)
 
 var path = require('path');
@@ -16,42 +16,47 @@ var userObject = require('./user/index');
 var config = require('./config');
 
 var connection_str = config.database.dialect+'://' + config.database.host + '/' + config.database.db_name;
-
+console.log('connection_str', connection_str);
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-  secret: 'nhbyflwfnm',
-  resave: false,
-  saveUninitialized: true,
-  store: new MongoStore({ mongooseConnection: require('mongoose').connection })
-}));
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use(expressSession({secret:'keyboard cat', resave: true, saveUninitialized: true}));
+app.use(session({secret:'keyboard cat', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 authObject.init()
-
-app.use('/auth', authObject.routers);
-// app.use('/users', userObject.routers);
-
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 
 app.get('/', function(req, res) {
     //Here you have an access to req.user
     res.json(req.user);
 });
+app.get('/api/login', function(req, res) {
+    //Here you have an access to req.user
+    res.send({data:'error'});
+});
+
+app.use('/api/auth', authObject.routers);
+app.use('/api/user', userObject.routers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-//connect to mongoose
-dbObject.init(connection_str)
+var mongoose = require('mongoose');
+mongoose.connect(connection_str, {useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -61,7 +66,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({'error': err});
 });
 
 module.exports = app;

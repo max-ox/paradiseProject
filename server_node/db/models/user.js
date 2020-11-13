@@ -1,15 +1,14 @@
 var mongoose = require('mongoose');
-var findOrCreate = require('mongoose-findorcreate')
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema(
     {
         login: {type: String, required: true, max: 30},
-        username: {type: String, required: true, max: 30},
-        email: {type: String, required: true, max: 100},
-        password: {type: String, required: true, max: 100},
-        link_for_connect: {type: String, required: true},
-        its_pin: {type: String, required: true, max: 5},
+        nickname: {type: String, max: 30, unique : true, required : true},
+        email: {type: String, max: 100, unique : true, required : true},
+        password: {type: String, max: 100},
+        contactLink: {type: String, required: true},
+        itsPIN: {type: String, required: true, max: 5},
         vkontakteId: {type: String, required: true, max:10},
         achievements: [
             {
@@ -19,11 +18,10 @@ var UserSchema = new Schema(
         ],
         fraction: {type: mongoose.Schema.Types.ObjectId, ref: "Fraction"},
         rank: {type: mongoose.Schema.Types.ObjectId, ref: "Rank"},
-        is_active: {type: Boolean},
-        is_deleted: {type: Boolean}
+        isActive: {type: Boolean},
+        isDeleted: {type: Boolean}
     }
 );
-UserSchema.plugin(findOrCreate);
 //Export model
 module.exports = mongoose.model('User', UserSchema);
 //
