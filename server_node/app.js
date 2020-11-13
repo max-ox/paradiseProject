@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({secret:'keyboard cat', resave: true, saveUninitialized: true}));
+app.use(session({secret:config.nodeAuthSecret, resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,6 +46,9 @@ app.use('/api/user', userObject.routers);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+console.log('config', config);
 
 var mongoose = require('mongoose');
 mongoose.connect(connection_str, {useNewUrlParser: true,  useUnifiedTopology: true });

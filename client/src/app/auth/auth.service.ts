@@ -68,6 +68,14 @@ export class AuthService {
   }
 
   doLogout() {
+    let api = `/api/logout`;
+    this.http.get(api).pipe(
+      map((res: Response) => {
+        console.log('getUserProfile res, ', res)
+        return res || {}
+      }),
+      catchError(this.handleError)
+    )
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['log-in']);
