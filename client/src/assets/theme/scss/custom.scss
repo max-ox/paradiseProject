@@ -1,7 +1,5 @@
 @import "./variables.scss";
 /*Import custom variables first, because Bootstrap uses !default*/
-@import "../../node_modules/bootstrap/scss/bootstrap";
-@import "../../node_modules/bootstrap-select/sass/bootstrap-select";
 
 .headline-layout {
     color: theme-color("phosphor-purple");
@@ -217,7 +215,7 @@ kbd {
 //Alerts
 .alert  {
     border-radius: 0;
-    border-width: 1px 0;  
+    border-width: 1px 0;
     text-align: center;
     @include bg-gradient-v-5-10-striped(theme-color("primary"));
     border-color: theme-color("primary");
@@ -502,7 +500,7 @@ kbd {
                     }
                 }
             }
-        }   
+        }
     }
 }
 
@@ -735,7 +733,7 @@ label   {
             .ng-arrow-wrapper{
                 bottom: 2px;
             }
-        } 
+        }
     }
     .ng-dropdown-panel  {
         background: theme-color("black");
@@ -762,7 +760,7 @@ label   {
         .ng-select-container    {
             background: transparent;
             border-radius: 0;
-            border-width: 0 0 1px 0; 
+            border-width: 0 0 1px 0;
             margin-bottom: 0;
             max-height: 100%;
         }
@@ -1154,7 +1152,7 @@ label   {
         .spinner-grow-sm    {
             height: 1.2rem;
             width: 1.2rem;
-        } 
+        }
     }
 }
 
@@ -1170,7 +1168,7 @@ label   {
             max-width: none;
         }
     }
-    @include media-breakpoint-up(sm) {   
+    @include media-breakpoint-up(sm) {
         right: 12px;
         width: 350px;
     }
@@ -1587,5 +1585,5 @@ footer {
 }
 
 @include media-breakpoint-up(lg) {
-    
+
 }
