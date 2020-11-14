@@ -1,0 +1,1 @@
+Add all content media files here (example images, etc.).

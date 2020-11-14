@@ -1,0 +1,1 @@
+Add only media files that are part of the theme here. E.g. the logo, grapical elements.

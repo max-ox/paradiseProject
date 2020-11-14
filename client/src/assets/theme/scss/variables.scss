@@ -1,0 +1,178 @@
+/*Overwriting Bootstrap variables, that will then be used in existing Bootstrap SCSS*/
+$body-bg: #000;
+$body-color: #aafffc;
+
+/*Overwriting or adding to Bootstrap maps, that will also be used in existing Bootstrap SCSS*/
+$theme-colors: (
+    "primary": rgb(170, 255, 252),
+    "highlight": rgb(43, 237, 230),
+    "secondary": rgb(43, 237, 230), //Same as highlight
+    "info": rgb(43, 237, 230), //Same as highlight
+    "success": rgb(79, 227, 139),
+    "warning": rgb(250, 146, 29),
+    "danger": rgb(237, 55, 55),
+    "black": rgb(0, 0, 0),
+    "dark": rgb(0, 0, 0), //Same as black
+    "white": rgb(255, 255, 255),
+    "light": rgb(255, 255, 255), //Same as white
+    "phosphor-amber": rgb(255, 176, 0),
+    "phosphor-green": rgb(51, 255, 0),
+    "phosphor-purple": rgb(200, 0, 200),
+    "phosphor-grey": rgb(40, 40, 40),
+    "disabled": rgb(170,170,170)
+);
+
+.transition {
+    transition: all 0.4s ease;
+}
+
+
+//Color & gradient mixins
+@mixin text-shadow($color)   {
+    text-shadow: 0px 0px 5px rgba($color, 0.3);
+}
+@mixin bg-gradient-v-0-10($color)   {
+    background: linear-gradient(to bottom, rgba($color, 0) 0%, rgba($color, 0.1) 100%);
+}
+@mixin bg-gradient-v-2-9($color)   {
+    background: linear-gradient(to bottom, rgba($color, 0.02) 0%, rgba($color, 0.09) 100%);
+}
+@mixin bg-gradient-v-5-10($color)   {
+    background: linear-gradient(to bottom, rgba($color, 0.05) 0%, rgba($color, 0.1) 100%);
+}
+@mixin bg-gradient-v-10-20($color)   {
+    background: linear-gradient(to bottom, rgba($color, 0.1) 0%, rgba($color, 0.2) 100%);
+}
+@mixin bg-gradient-h-10-0($color)   {
+    background: linear-gradient(to right, rgba($color, 0.1) 0%, rgba($color, 0) 100%);
+}
+@mixin bg-gradient-v-70-20($color)   {
+    background: linear-gradient(to bottom, rgba($color, 0.7) 0%, rgba($color, 0.2) 100%);
+}
+@mixin bg-gradient-v-5-10-striped($color)   {
+    background:
+        repeating-linear-gradient(0deg, rgba($color, 0) 0px, rgba($color, 0) 2px, rgba($color, 0.1) 2px, rgba($color, 0.1) 4px),
+        linear-gradient(to bottom, rgba($color, 0.05) 0%, rgba($color, 0.1) 100%)
+    ;
+}
+@mixin bg-gradient-d-striped($color)   {
+    background: repeating-linear-gradient(-45deg, rgba($color, 0) 0px, rgba($color, 0) 20px, rgba($color, 0.1) 20px, rgba($color, 0.1) 40px);
+}
+@mixin popup-gradient-v($color)   {
+    background: 
+        linear-gradient(to bottom, rgba($color, 0.2) 0%, rgba($color, 0.3) 100%),
+        linear-gradient(to bottom, rgba(theme-color("black"), 1) 0%, rgba(theme-color("black"), 1) 100%)
+    ;
+}
+@mixin border-gradient-v-35-0($color)   {
+    border-image: linear-gradient(to bottom, rgba($color, 0.35) 0%, rgba($color, 0) 100%);
+    border-image-slice: 1;
+}
+@mixin border-gradient-h-35-0($color)   {
+    border-image: linear-gradient(to right, rgba($color, 0.35) 0%, rgba($color, 0) 100%);
+    border-image-slice: 1;
+}
+
+/*----- Grid -----*/
+
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1310px);
+$container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1280px);
+$spacer: 1rem;
+$spacers: (
+    "zero": 0,
+    "quarter": ($spacer * .25),
+    "half": ($spacer * .5),
+    "base": $spacer,
+    "onehalf": ($spacer * 1.5),
+    "double": ($spacer * 2),
+    "triple": ($spacer * 3),
+    "sextuple": ($spacer * 6)
+);
+//Helper to get simpler map usage: 'map("key")' instead of 'map-get($maps, key)'
+@function spacing($key) {
+    @if map-has-key($spacers, $key) {
+        @return map-get($spacers, $key);
+    }
+    @warn "Unknown `#{$key}` in $spacers.";
+    @return null;
+}
+
+/*----- Grid END -----*/
+
+
+/*----- Fonts -----*/
+
+/*Font families*/
+@font-face {
+    font-family: 'Pro Font Windows';
+    src: url('../assets/fonts/ProFontWindows-webfont.woff') format('woff'), url('../assets/fonts/ProFontWindows-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+$font-families: (
+    "base": "Titillium Web",
+    "numbers": "Pro Font Windows"
+);
+@function font-family($key) {
+    @if map-has-key($font-families,
+    $key) {
+        @return map-get($font-families,
+        $key);
+    }
+    @warn "Unknown `#{$key}` in $font-families.";
+    @return null;
+}
+$font-family-base: font-family("base"), sans-serif;
+$font-family-numbers: font-family("numbers"), sans-serif;
+
+/*Font weights*/
+$font-weights: (
+    "light": 300,
+    "bold": 700
+);
+@function font-weight($key) {
+    @if map-has-key($font-weights,
+    $key) {
+        @return map-get($font-weights,
+        $key);
+    }
+    @warn "Unknown `#{$key}` in $font-weights.";
+    @return null;
+}
+
+/*Font sizes & line heights*/
+$font-sizes: (
+    "x-small": 12px,
+    "small": 14px,
+    "base": 16px,
+    "medium": 20px,
+    "large": 30px,
+    "x-large": 40px
+);
+@function font-size($key) {
+    @if map-has-key($font-sizes,
+    $key) {
+        @return map-get($font-sizes,
+        $key);
+    }
+    @warn "Unknown `#{$key}` in $font-sizes.";
+    @return null;
+}
+$line-heights: (
+    "small": font-size("small")*1.5,
+    "base": font-size("base")*1.5,
+    "medium": font-size("medium")*1.5,
+    "large": font-size("base")*1.5,
+    "x-large": font-size("x-large")*1.5
+);
+@function line-height($key) {
+    @if map-has-key($line-heights,
+    $key) {
+        @return map-get($line-heights,
+        $key);
+    }
+    @warn "Unknown `#{$key}` in $line-heights.";
+    @return null;
+}
+
+/*----- Fonts END -----*/
