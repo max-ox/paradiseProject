@@ -24,8 +24,9 @@ router.get('/login', function(req, res) {
 });
 
 router.get('/logout', function (req, res) {
+    console.log('logout')
     req.logout();
-    res.redirect(`/`);
+    res.status(200).send({data:'success'})
 });
 
 module.exports = router;

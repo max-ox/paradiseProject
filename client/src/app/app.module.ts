@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 import { AuthGuard } from "./auth/auth.guard";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AuthGuard } from "./auth/auth.guard";
         { path: 'sign-up', component: RegisterComponent },
         { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]  },
         { path: 'welcome', component: HomeComponent }
-    ])
+    ]),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

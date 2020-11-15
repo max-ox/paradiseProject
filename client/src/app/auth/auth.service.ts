@@ -68,6 +68,13 @@ export class AuthService {
   }
 
   doLogout() {
+    let api = `/api/auth/logout`;
+    this.http.get(api)
+      .subscribe(value =>{},
+        error => {
+          this.handleError(error);
+          // error - объект ошибки
+        });
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['log-in']);
