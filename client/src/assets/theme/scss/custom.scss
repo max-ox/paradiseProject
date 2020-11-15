@@ -20,7 +20,7 @@
 
 html,
 body {
-    background: url(../assets/media/background.jpg);
+    background: url(./assets/theme/assets/media/background.jpg);
     background-attachment: fixed;
     background-size: cover;
     font-family: $font-family-base;
@@ -869,7 +869,7 @@ label   {
     &.fade  {
         .modal-dialog   {
             .modal-content  {
-                background: url(../assets/media/background.jpg);
+                background: url(./assets/theme/assets/media/background.jpg);
             }
         }
     }

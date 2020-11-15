@@ -59,7 +59,7 @@ $theme-colors: (
     background: repeating-linear-gradient(-45deg, rgba($color, 0) 0px, rgba($color, 0) 20px, rgba($color, 0.1) 20px, rgba($color, 0.1) 40px);
 }
 @mixin popup-gradient-v($color)   {
-    background: 
+    background:
         linear-gradient(to bottom, rgba($color, 0.2) 0%, rgba($color, 0.3) 100%),
         linear-gradient(to bottom, rgba(theme-color("black"), 1) 0%, rgba(theme-color("black"), 1) 100%)
     ;
@@ -105,7 +105,7 @@ $spacers: (
 /*Font families*/
 @font-face {
     font-family: 'Pro Font Windows';
-    src: url('../assets/fonts/ProFontWindows-webfont.woff') format('woff'), url('../assets/fonts/ProFontWindows-webfont.ttf') format('truetype');
+    src: url('./assets/theme/assets/fonts/ProFontWindows-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
