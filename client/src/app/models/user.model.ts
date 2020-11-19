@@ -6,6 +6,7 @@ export class User {
     this.nickname = '';
     this.itsPIN = '';
     this.faction = '';
+    this.avatar = '';
     // this.rank = '';
     this.contactLink = '';
     this.achievements = [];
@@ -18,5 +19,6 @@ export class User {
   public faction;
   public contactLink;
   public achievements;
+  public avatar;
   // public rank;
 }

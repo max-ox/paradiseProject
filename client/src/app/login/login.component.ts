@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import {AuthService} from '../auth/auth.service';
@@ -8,14 +7,13 @@ import {AuthService} from '../auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [ LoginService ]
+  providers: [  ]
 })
 export class LoginComponent {
   public user: User;
   public currentUser = {};
 
   constructor(
-    private loginService: LoginService,
     public router: Router,
     public authService: AuthService,
   ) {

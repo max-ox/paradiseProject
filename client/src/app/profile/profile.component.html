@@ -1,9 +1,75 @@
-  <div class="row" *ngIf="this.currentUser">
-    <p class="col-12 headline2">User Profile</p>
-    <p class="col-12"><strong>Nickname:</strong> {{this.currentUser.nickname}}</p>
-    <p class="col-12"><strong>Email:</strong> {{this.currentUser.email}}</p>
-    <p class="col-12"><strong>contactLink:</strong> {{this.currentUser.contactLink}}</p>
-    <p class="col-12"><strong>its_pin:</strong> {{this.currentUser.itsPIN}}</p>
-    <p class="col-12" *ngIf="this.currentUser.faction"><strong>faction:</strong> {{this.currentUser.faction.name}}</p>
-<!--      <p *ngIf="this.currentUser.rank"><strong>rank:</strong> {{this.currentUser.rank.name}}</p>-->
+<div class="row" *ngIf="this.currentUser">
+  <p class="col-12 headline2">User Profile</p>
+    <div *ngIf="!this.isEditNow" class="col-6">
+      <div *ngIf="this.currentUser.avatar">  <img  src="this.currentUser.avatar"/></div>
+      <div *ngIf="!this.currentUser.avatar">  <div class="default-avatar"></div></div>
+      <p><strong>Nickname:</strong> {{this.currentUser.nickname}}</p>
+      <p><strong>Email:</strong> {{this.currentUser.email}}</p>
+      <p><strong>contactLink:</strong> {{this.currentUser.contactLink}}</p>
+      <p><strong>its_pin:</strong> {{this.currentUser.itsPIN}}</p>
+      <p *ngIf="this.currentUser.faction"><strong>faction:</strong> {{this.currentUser.faction.name}}</p>
+      <!--      <p *ngIf="this.currentUser.rank"><strong>rank:</strong> {{this.currentUser.rank.name}}</p>-->
+      <p>
+        <button type="button" class="btn btn-primary" (click)="startEdit()">Edit profile</button>
+      </p>
+    </div>
+
+    <div *ngIf="this.isEditNow" class="col-6">
+      <input type="file" (change)="fileChangeEvent($event)" />
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="3/4"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+        resizeToWidth="250"
+      ></image-cropper>
+
+      <img [src]="croppedImage" />
+
+    <div class="form-group">
+      <label>password</label>
+      <input class="form-control" name="password" type="password"  [(ngModel)]="editUser.password" #password="ngModel"
+             required/>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+          field is required
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>confirm password</label>
+      <input class="form-control" name="confirmpassword" type="password"  [(ngModel)]="editUser.confirmPassword" #confirmpassword="ngModel"
+             required/>
+      <div *ngIf="(confirmpassword.invalid || editUser.password !== editUser.confirmPassword) && (confirmpassword.dirty || confirmpassword.touched)"
+           class="alert alert-danger">
+        <div *ngIf="editUser.password !== editUser.confirmPassword">
+          password must match
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="inputITSPIN" class="sr-only">its pin</label>
+      <input name="itspin" [(ngModel)] = "editUser.itsPIN" type="text" id="inputITSPIN" class="form-control">
+    </div>
+    <div>
+      <label>contact link</label>
+      <input class="form-control" name="contactLink" type="text"  [(ngModel)]="editUser.contactLink" #contactLink="ngModel"
+             required/>
+      <div *ngIf="contactLink.invalid && (contactLink.dirty || contactLink.touched)"
+           class="alert alert-danger">
+        <div *ngIf="contactLink.errors.required">
+          field is required
+        </div>
+      </div>
+      <small>Link to a bla bla</small>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="cancelEdit()">cancel</button>
+    <button type="button" class="btn btn-primary" (click)="saveEdit()">save</button>
+    <button type="button" class="btn btn-primary" (click)="deleteProfile()">delete</button>
   </div>
+</div>
