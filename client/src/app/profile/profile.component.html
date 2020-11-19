@@ -1,13 +1,9 @@
-<div class="container">
-  <div class="row">
-    <div class="inner-main" *ngIf="this.currentUser">
-      <h2 class="mb-4">User Profile</h2>
-      <p><strong>Nickname:</strong> {{this.currentUser.nickname}}</p>
-      <p><strong>Email:</strong> {{this.currentUser.email}}</p>
-      <p><strong>contactLink:</strong> {{this.currentUser.contactLink}}</p>
-      <p><strong>its_pin:</strong> {{this.currentUser.itsPIN}}</p>
-      <p *ngIf="this.currentUser.faction"><strong>faction:</strong> {{this.currentUser.faction.name}}</p>
+  <div class="row" *ngIf="this.currentUser">
+    <p class="col-12 headline2">User Profile</p>
+    <p class="col-12"><strong>Nickname:</strong> {{this.currentUser.nickname}}</p>
+    <p class="col-12"><strong>Email:</strong> {{this.currentUser.email}}</p>
+    <p class="col-12"><strong>contactLink:</strong> {{this.currentUser.contactLink}}</p>
+    <p class="col-12"><strong>its_pin:</strong> {{this.currentUser.itsPIN}}</p>
+    <p class="col-12" *ngIf="this.currentUser.faction"><strong>faction:</strong> {{this.currentUser.faction.name}}</p>
 <!--      <p *ngIf="this.currentUser.rank"><strong>rank:</strong> {{this.currentUser.rank.name}}</p>-->
-    </div>
   </div>
-</div>

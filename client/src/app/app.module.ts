@@ -30,9 +30,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     RouterModule.forRoot([
         { path: '', pathMatch: 'full', redirectTo: 'welcome' },
-        { path: 'log-in', component: LoginComponent },
+        { path: 'sign-in', component: LoginComponent },
         { path: 'sign-up', component: RegisterComponent },
-        { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]  },
+        { path: 'profile/:nickname', component: ProfileComponent, canActivate: [AuthGuard]  },
         { path: 'welcome', component: HomeComponent }
     ]),
     NgbModule

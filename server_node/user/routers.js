@@ -3,10 +3,10 @@ var router = express.Router();
 var User = require('../db/models/user');
 const isLogin = require('../auth/middleware')
 
-router.get('/:id', isLogin(),
+router.get('/:nickname', isLogin(),
     function(req, res) {
-        if(req.params && req.params.id) {
-            User.findById(req.params.id, function (err, user) {
+        if(req.params && req.params.nickname) {
+            User.findOne({ nickname: req.params.nickname}, function (err, user) {
                 if(err) {
                     res.status(500).send({data:err});
                 } else {

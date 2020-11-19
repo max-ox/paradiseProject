@@ -28,7 +28,7 @@ body {
     font-weight: font-weight("light");
     line-height: line-height("base");
     @include text-shadow(theme-color("highlight"));
-
+    color: theme-color("primary");
     overflow-x: hidden; //Fix for fullwidth-container
 
     //Proper word wrap
