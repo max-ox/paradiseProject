@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AuthService } from '../auth/auth.service';
+import { FactionService } from '../services/faction.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -13,6 +14,7 @@ export class ProfileComponent implements OnInit {
 
   currentUser: User;
   editUser: User;
+  factionList: Array<any>;
   imageChangedEvent: any = '';
   croppedImage: any = '';
   isEditNow: boolean = false;
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    public factionService: FactionService,
     private actRoute: ActivatedRoute
   ) {
     this.editUser = new User();
@@ -50,6 +53,14 @@ export class ProfileComponent implements OnInit {
     let nickname = this.actRoute.snapshot.paramMap.get('nickname');
     this.authService.getUserProfile(nickname).subscribe(res => {
       this.currentUser = res.user;
+      if(this.currentUser && !this.currentUser.isActive) {
+        this.factionService.getFactions().subscribe(res => {
+          console.log('res', res)
+          this.factionList = res.factions;
+          console.log('this.factionList', this.factionList);
+          this.isEditNow = true;
+        })
+      }
     })
   }
 

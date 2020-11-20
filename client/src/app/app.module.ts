@@ -13,6 +13,8 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
+import { FactionService } from './services/faction.service';
+
 import { AuthGuard } from "./auth/auth.guard";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,7 +41,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ]),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    FactionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

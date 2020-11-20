@@ -68,6 +68,29 @@
       </div>
       <small>Link to a bla bla</small>
     </div>
+    <div>
+      <div class="col">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a class="dropdown-item"  *ngFor="let item of factionList; let i = index">
+              {{item.name}}
+            </a>
+          </div>
+        </div>
+      </div>
+<!--      <div class="dropdown float-left mr-3">-->
+<!--        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--          Faction-->
+<!--        </button>-->
+<!--        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">-->
+<!--          <a class="dropdown-item" ng-repeat="item in factionList">{{item.name }} </a>-->
+<!--          <a class="dropdown-item" href="#">Action</a>-->
+<!--          <a class="dropdown-item" href="#">Another action</a>-->
+<!--          <a class="dropdown-item" href="#">Something else here</a>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
     <button type="button" class="btn btn-primary" (click)="cancelEdit()">cancel</button>
     <button type="button" class="btn btn-primary" (click)="saveEdit()">save</button>
     <button type="button" class="btn btn-primary" (click)="deleteProfile()">delete</button>

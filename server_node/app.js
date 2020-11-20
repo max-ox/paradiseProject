@@ -9,6 +9,7 @@ var MongoStore = require('connect-mongo')(session);
 
 var authObject = require('./auth/index');
 var userObject = require('./user/index');
+var factionObject = require('./faction/index');
 
 var config = require('./config');
 
@@ -55,6 +56,7 @@ app.get('/api/login', function(req, res) {
 
 app.use('/api/auth', authObject.routers);
 app.use('/api/user', userObject.routers);
+app.use('/api/faction', factionObject.routers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
