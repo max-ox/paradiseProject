@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var passport = require('passport');
+var MongoStore = require('connect-mongo')(session);
 
 var authObject = require('./auth/index');
 var userObject = require('./user/index');
@@ -20,7 +21,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({secret:config.nodeAuthSecret, resave: true, saveUninitialized: true}));
+app.use(session({
+    secret: config.nodeAuthSecret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 15000, //1 Hour
+    },
+    // Место хранения можно выбрать из множества вариантов, это и БД и файлы и Memcached.
+    store: new MongoStore({
+        url: connection_str,
+    })
+}))
+
+// app.use(session({secret:config.nodeAuthSecret, resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
