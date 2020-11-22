@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 import { FactionService } from './services/faction.service';
+import { UserService } from './services/user.service';
 
 import { AuthGuard } from "./auth/auth.guard";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,7 +43,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
   providers: [
-    FactionService
+    FactionService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AuthService } from '../auth/auth.service';
 import { FactionService } from '../services/faction.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public factionService: FactionService,
+    public userService: UserService,
     private actRoute: ActivatedRoute
   ) {
     this.editUser = new User();
@@ -55,10 +57,9 @@ export class ProfileComponent implements OnInit {
       this.currentUser = res.user;
       if(this.currentUser && !this.currentUser.isActive) {
         this.factionService.getFactions().subscribe(res => {
-          console.log('res', res)
           this.factionList = res.factions;
-          console.log('this.factionList', this.factionList);
           this.isEditNow = true;
+          this.editUser = this.currentUser;
         })
       }
     })
@@ -94,7 +95,14 @@ export class ProfileComponent implements OnInit {
   }
 
   saveEdit() {
-    console.log(this.editUser);
+    console.log('ssss', this.editUser);
+    this.userService.updateUser(this.editUser).subscribe(res => {
+      console.log('res', res)
+    })
+  }
+
+  changeUserFaction(faction) {
+    this.editUser.faction=faction
   }
 
   deleteProfile() {

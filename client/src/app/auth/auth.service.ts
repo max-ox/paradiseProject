@@ -75,11 +75,12 @@ export class AuthService {
   }
 
   // User profile
-  getUserProfile(nickname): Observable<any> {
+  getUserProfile(nickname): any {
     let api = `/api/user/${nickname}`;
     const header = this.headers.append('Authorization', `Bearer ${this.getToken()}`);
 
-    return this.http.get(api, { headers: header }).pipe(
+    return this.http.get(api, {headers: header})
+      .pipe(
       map((res: Response) => {
         console.log('getUserProfile res, ', res)
         return res || {}
@@ -98,7 +99,7 @@ export class AuthService {
       // server-side error
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    this.doLogout();
+    // this.doLogout();
     return throwError(msg);
   }
 }
