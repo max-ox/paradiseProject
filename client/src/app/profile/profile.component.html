@@ -53,11 +53,21 @@
 <!--      </div>-->
 <!--    </div>-->
     <div class="form-group">
+      <label >nickname</label>
+      <input #nickname="ngModel" name="nickname" [(ngModel)] = "editUser.nickname" type="text" class="form-control" required/>
+      <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)"
+           class="alert alert-danger">
+        <div *ngIf="nickname.errors.required">
+          field is required
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
       <label >its pin</label>
       <input #itspin="ngModel" name="itspin" [(ngModel)] = "editUser.itsPIN" type="text" class="form-control" required/>
       <div *ngIf="itspin.invalid && (itspin.dirty || itspin.touched)"
            class="alert alert-danger">
-        <div *ngIf="contactLink.errors.required">
+        <div *ngIf="itspin.errors.required">
           field is required
         </div>
       </div>
@@ -77,7 +87,7 @@
     <div>
       <div class="col">
         <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{editUser.faction ? editUser.faction.name : 'Choose faction'}}</button>
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{editUser.faction && editUser.faction.name ? editUser.faction.name : 'Choose faction'}}</button>
           <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <a class="dropdown-item" (click)="this.changeUserFaction(item)"  *ngFor="let item of factionList; let i = index">
               {{item.name}}

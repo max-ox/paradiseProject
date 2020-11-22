@@ -27,10 +27,14 @@ router.put('/', isLogin(),
         console.log('req.body.user', req.body.user);
         const faction_id = req.body.user.faction ? req.body.user.faction._id : '';
         req.body.user.faction = faction_id;
-        User.findOneAndUpdate({_id: req.body.user._id}, req.body.user, {upsert: true}, function(err, doc) {
-            if (err) return res.send(500, {error: err});
-            return res.send('Succesfully saved.');
-        });
+        User.findOneAndUpdate({_id: req.body.user._id}, req.body.user, {upsert: true})
+            .populate('faction')
+            .exec(function(err, doc) {
+                if (err) return res.send(500, {error: err});
+                // user.populate('faction')
+                console.log('doc', doc)
+                return res.send(200, {user: doc});
+            });
     }
 
     })

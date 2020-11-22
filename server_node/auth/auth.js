@@ -57,12 +57,10 @@ function initPassport () {
                         nickname: profile.username,
                         email: profile.emails[0].value,
                         contactLink: profile.profileUrl,
-                        itsPIN: '0000',
                         vkontakteId: profile.id,
                         isActive: false
                     });
                     user.save(function(err) {
-
                         if (err) console.log('user.save err ', err);
                         return done(err, user);
                     });

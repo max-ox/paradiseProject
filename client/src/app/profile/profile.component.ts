@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
         this.factionService.getFactions().subscribe(res => {
           this.factionList = res.factions;
           this.isEditNow = true;
-          this.editUser = this.currentUser;
+          Object.assign(this.editUser, this.currentUser);
         })
       }
     })
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
     this.factionService.getFactions().subscribe(res => {
       this.factionList = res.factions;
       this.isEditNow = true;
-      this.editUser = this.currentUser;
+      Object.assign(this.editUser, this.currentUser)
     })
   }
 
@@ -99,10 +99,11 @@ export class ProfileComponent implements OnInit {
   }
 
   saveEdit() {
-    if(this.editUser.itsPIN !='0000' && this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
+    if(this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
       this.editUser.isActive = true;
     }
     this.userService.updateUser(this.editUser).subscribe(res => {
+      Object.assign(this.currentUser, this.editUser)
       this.isEditNow = false;
     })
   }
