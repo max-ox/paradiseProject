@@ -66,7 +66,11 @@ export class ProfileComponent implements OnInit {
   }
 
   startEdit() :void {
-    this.isEditNow = true;
+    this.factionService.getFactions().subscribe(res => {
+      this.factionList = res.factions;
+      this.isEditNow = true;
+      this.editUser = this.currentUser;
+    })
   }
 
   dataURItoBlob(dataURI): Blob {

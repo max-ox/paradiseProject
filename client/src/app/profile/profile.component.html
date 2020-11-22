@@ -1,8 +1,8 @@
 <div class="row" *ngIf="this.currentUser">
   <p class="col-12 headline2">User Profile</p>
     <div *ngIf="!this.isEditNow" class="col-6">
-      <div *ngIf="this.currentUser.avatar">  <img  src="this.currentUser.avatar"/></div>
-      <div *ngIf="!this.currentUser.avatar">  <div class="default-avatar"></div></div>
+<!--      <div *ngIf="this.currentUser.avatar">  <img  src="this.currentUser.avatar"/></div>-->
+<!--      <div *ngIf="!this.currentUser.avatar">  <div class="default-avatar"></div></div>-->
       <p><strong>Nickname:</strong> {{this.currentUser.nickname}}</p>
       <p><strong>Email:</strong> {{this.currentUser.email}}</p>
       <p><strong>contactLink:</strong> {{this.currentUser.contactLink}}</p>
@@ -15,20 +15,20 @@
     </div>
 
     <div *ngIf="this.isEditNow" class="col-6">
-      <input type="file" (change)="fileChangeEvent($event)" />
-      <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="3/4"
-        format="png"
-        (imageCropped)="imageCropped($event)"
-        (imageLoaded)="imageLoaded()"
-        (cropperReady)="cropperReady()"
-        (loadImageFailed)="loadImageFailed()"
-        resizeToWidth="250"
-      ></image-cropper>
+<!--      <input type="file" (change)="fileChangeEvent($event)" />-->
+<!--      <image-cropper-->
+<!--        [imageChangedEvent]="imageChangedEvent"-->
+<!--        [maintainAspectRatio]="true"-->
+<!--        [aspectRatio]="3/4"-->
+<!--        format="png"-->
+<!--        (imageCropped)="imageCropped($event)"-->
+<!--        (imageLoaded)="imageLoaded()"-->
+<!--        (cropperReady)="cropperReady()"-->
+<!--        (loadImageFailed)="loadImageFailed()"-->
+<!--        resizeToWidth="250"-->
+<!--      ></image-cropper>-->
 
-      <img [src]="croppedImage" />
+<!--      <img [src]="croppedImage" />-->
 
 <!--    <div class="form-group">-->
 <!--      <label>password</label>-->
