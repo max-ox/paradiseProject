@@ -30,31 +30,37 @@
 
       <img [src]="croppedImage" />
 
+<!--    <div class="form-group">-->
+<!--      <label>password</label>-->
+<!--      <input class="form-control" name="password" type="password"  [(ngModel)]="editUser.password" #password="ngModel"-->
+<!--             required/>-->
+<!--      <div *ngIf="password.invalid && (password.dirty || password.touched)"-->
+<!--           class="alert alert-danger">-->
+<!--        <div *ngIf="password.errors.required">-->
+<!--          field is required-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label>confirm password</label>-->
+<!--      <input class="form-control" name="confirmpassword" type="password"  [(ngModel)]="editUser.confirmPassword" #confirmpassword="ngModel"-->
+<!--             required/>-->
+<!--      <div *ngIf="(confirmpassword.invalid || editUser.password !== editUser.confirmPassword) && (confirmpassword.dirty || confirmpassword.touched)"-->
+<!--           class="alert alert-danger">-->
+<!--        <div *ngIf="editUser.password !== editUser.confirmPassword">-->
+<!--          password must match-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="form-group">
-      <label>password</label>
-      <input class="form-control" name="password" type="password"  [(ngModel)]="editUser.password" #password="ngModel"
-             required/>
-      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+      <label >its pin</label>
+      <input #itspin="ngModel" name="itspin" [(ngModel)] = "editUser.itsPIN" type="text" class="form-control" required/>
+      <div *ngIf="itspin.invalid && (itspin.dirty || itspin.touched)"
            class="alert alert-danger">
-        <div *ngIf="password.errors.required">
+        <div *ngIf="contactLink.errors.required">
           field is required
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>confirm password</label>
-      <input class="form-control" name="confirmpassword" type="password"  [(ngModel)]="editUser.confirmPassword" #confirmpassword="ngModel"
-             required/>
-      <div *ngIf="(confirmpassword.invalid || editUser.password !== editUser.confirmPassword) && (confirmpassword.dirty || confirmpassword.touched)"
-           class="alert alert-danger">
-        <div *ngIf="editUser.password !== editUser.confirmPassword">
-          password must match
-        </div>
-      </div>
-    </div>
-      <div class="form-group">
-      <label >its pin</label>
-      <input #itspin="ngModel" name="itspin" [(ngModel)] = "editUser.itsPIN" type="text" class="form-control" required/>
     </div>
     <div>
       <label>contact link</label>

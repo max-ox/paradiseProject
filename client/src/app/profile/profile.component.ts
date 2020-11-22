@@ -95,9 +95,11 @@ export class ProfileComponent implements OnInit {
   }
 
   saveEdit() {
-    console.log('ssss', this.editUser);
+    if(this.editUser.itsPIN !='0000' && this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
+      this.editUser.isActive = true;
+    }
     this.userService.updateUser(this.editUser).subscribe(res => {
-      console.log('res', res)
+      this.isEditNow = false;
     })
   }
 

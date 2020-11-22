@@ -5,7 +5,7 @@ export class User {
     this.confirmPassword = '';
     this.nickname = '';
     this.itsPIN = '';
-    this.faction = '';
+    this.faction = {};
     this.avatar = '';
     // this.rank = '';
     this.isActive = '';
