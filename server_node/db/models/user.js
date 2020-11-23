@@ -8,7 +8,7 @@ var UserSchema = new Schema(
         email: {type: String, max: 100, unique : true, required : true},
         password: {type: String, max: 100},
         contactLink: {type: String, required: true},
-        itsPIN: {type: String, max: 5},
+        itsPIN: {type: String, max: 5, unique: true, sparse: true},
         vkontakteId: {type: String, required: true, max:10},
         achievements: [
             {

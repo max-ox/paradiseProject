@@ -21,20 +21,28 @@ router.get('/:nickname', isLogin(),
         }
 });
 
+async function isExist(query) {
+    return User.exists(query)
+}
+
 router.put('/', isLogin(),
-    function (req, res) {
+    async function (req, res) {
     if(req.body && req.body.user) {
-        console.log('req.body.user', req.body.user);
-        const faction_id = req.body.user.faction ? req.body.user.faction._id : '';
-        req.body.user.faction = faction_id;
-        User.findOneAndUpdate({_id: req.body.user._id}, req.body.user, {upsert: true})
-            .populate('faction')
-            .exec(function(err, doc) {
-                if (err) return res.send(500, {error: err});
-                // user.populate('faction')
-                console.log('doc', doc)
-                return res.send(200, {user: doc});
-            });
+        const isNicknameInvalid = await isExist({nickname: req.body.user.nickname, _id: { $ne: req.body.user._id }});
+        const isItsPINInvalid = await isExist({itsPIN: req.body.user.itsPIN, _id: { $ne: req.body.user._id }});
+        if(isNicknameInvalid || isItsPINInvalid ){
+            res.send(409, {isNicknameInvalid, isItsPINInvalid});
+        } else {
+            const faction_id = req.body.user.faction ? req.body.user.faction._id : '';
+            req.body.user.faction = faction_id;
+            User.findOneAndUpdate({_id: req.body.user._id}, req.body.user, {upsert: true})
+                .populate('faction')
+                .exec(function(err, doc) {
+                    if (err) return res.send(500, {error: err});
+                    return res.send(200, {user: doc});
+                });
+        }
+
     }
 
     })
