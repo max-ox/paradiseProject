@@ -1,16 +1,26 @@
+$highlights-green: #43F728;
+$highlights-blue: #14d0fe;
+$highlights-blue_additional: #5ca7e0;
+$highlights-red: #ff1e1e;
+$highlights-warning: #b78702;
+$dark-area_border: #152534;
+$dark-area_background: #020305;
+
 /*Overwriting Bootstrap variables, that will then be used in existing Bootstrap SCSS*/
 $body-bg: #000;
-$body-color: #aafffc;
+$body-color: $highlights-blue_additional; //#aafffc - old color
+
+$border-radius: 0px;
 
 /*Overwriting or adding to Bootstrap maps, that will also be used in existing Bootstrap SCSS*/
 $theme-colors: (
-    "primary": rgb(170, 255, 252),
-    "highlight": rgb(43, 237, 230),
+    "primary": rgb(92, 167, 224),
+    "highlight": rgb(20, 208, 254),
     "secondary": rgb(43, 237, 230), //Same as highlight
     "info": rgb(43, 237, 230), //Same as highlight
     "success": rgb(79, 227, 139),
-    "warning": rgb(250, 146, 29),
-    "danger": rgb(237, 55, 55),
+    "warning": rgb(183, 135, 2),
+    "danger": rgb(255, 30, 30),
     "black": rgb(0, 0, 0),
     "dark": rgb(0, 0, 0), //Same as black
     "white": rgb(255, 255, 255),
@@ -28,6 +38,10 @@ $theme-colors: (
 
 
 //Color & gradient mixins
+@mixin light-around-c($blur, $color) {
+  box-shadow: 0px 0px $blur $color;
+}
+
 @mixin text-shadow($color)   {
     text-shadow: 0px 0px 5px rgba($color, 0.3);
 }
@@ -109,8 +123,11 @@ $spacers: (
     font-weight: normal;
     font-style: normal;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500&display=swap');
+
 $font-families: (
-    "base": "Titillium Web",
+    "base": "Exo 2",
     "numbers": "Pro Font Windows"
 );
 @function font-family($key) {

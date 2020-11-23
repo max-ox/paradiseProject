@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var FractionSchema = new Schema(
+var FactionSchema = new Schema(
     {
         name: {type: String, required: true, max: 100}
     }
 );
 
 //Export model
-module.exports = mongoose.model('Fraction', FractionSchema);
+module.exports = mongoose.model('Faction', FactionSchema);

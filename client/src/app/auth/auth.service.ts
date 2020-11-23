@@ -44,10 +44,9 @@ export class AuthService {
     let listener = window.addEventListener('message', (message) => {
       if(message && message.data && message.data.user) {
         const user = message.data.user;
-        console.log('message', message.data.user)
         localStorage.setItem('access_token', user._id)
-            localStorage.setItem('userId', user.userId)
-            this.router.navigate(['/profile/' + user._id]);
+        localStorage.setItem('userId', user.userId)
+        this.router.navigate(['/profile/' + user.nickname]);
       }
     });
   }
@@ -58,7 +57,6 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('access_token');
-    console.log('authToken', authToken);
     return (authToken !== null) ? true : false;
   }
 
@@ -72,16 +70,17 @@ export class AuthService {
         });
     let removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.router.navigate(['sign-in']);
     }
   }
 
   // User profile
-  getUserProfile(id): Observable<any> {
-    let api = `/api/user/${id}`;
+  getUserProfile(nickname): any {
+    let api = `/api/user/${nickname}`;
     const header = this.headers.append('Authorization', `Bearer ${this.getToken()}`);
 
-    return this.http.get(api, { headers: header }).pipe(
+    return this.http.get(api, {headers: header})
+      .pipe(
       map((res: Response) => {
         console.log('getUserProfile res, ', res)
         return res || {}
@@ -100,7 +99,7 @@ export class AuthService {
       // server-side error
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    this.doLogout();
+    // this.doLogout();
     return throwError(msg);
   }
 }

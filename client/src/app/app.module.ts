@@ -13,8 +13,12 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
+import { FactionService } from './services/faction.service';
+import { UserService } from './services/user.service';
+
 import { AuthGuard } from "./auth/auth.guard";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -32,14 +37,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     RouterModule.forRoot([
         { path: '', pathMatch: 'full', redirectTo: 'welcome' },
-        { path: 'log-in', component: LoginComponent },
+        { path: 'sign-in', component: LoginComponent },
         { path: 'sign-up', component: RegisterComponent },
-        { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]  },
+        { path: 'profile/:nickname', component: ProfileComponent, canActivate: [AuthGuard]  },
         { path: 'welcome', component: HomeComponent }
     ]),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    FactionService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

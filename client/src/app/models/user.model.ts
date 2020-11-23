@@ -5,9 +5,10 @@ export class User {
     this.confirmPassword = '';
     this.nickname = '';
     this.itsPIN = '';
-    this.faction = '';
+    this.faction = {};
     this.avatar = '';
     // this.rank = '';
+    this.isActive = '';
     this.contactLink = '';
     this.achievements = [];
   }
@@ -20,5 +21,6 @@ export class User {
   public contactLink;
   public achievements;
   public avatar;
+  public isActive;
   // public rank;
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AuthService } from '../auth/auth.service';
+import { FactionService } from '../services/faction.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -13,13 +15,18 @@ export class ProfileComponent implements OnInit {
 
   currentUser: User;
   editUser: User;
+  factionList: Array<any>;
   imageChangedEvent: any = '';
   croppedImage: any = '';
   isEditNow: boolean = false;
+  isError: boolean = false;
   defaultAvatar= '';
+  errorMessage= '';
 
   constructor(
     public authService: AuthService,
+    public factionService: FactionService,
+    public userService: UserService,
     private actRoute: ActivatedRoute
   ) {
     this.editUser = new User();
@@ -47,15 +54,63 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = this.actRoute.snapshot.paramMap.get('id');
-    this.authService.getUserProfile(id).subscribe(res => {
+    let nickname = this.actRoute.snapshot.paramMap.get('nickname');
+    this.authService.getUserProfile(nickname).subscribe(res => {
       this.currentUser = res.user;
+      if(this.currentUser && !this.currentUser.isActive) {
+        this.factionService.getFactions().subscribe(res => {
+          this.factionList = res.factions;
+          this.isEditNow = true;
+          Object.assign(this.editUser, this.currentUser);
+        })
+      }
     })
   }
 
   startEdit() :void {
-    this.isEditNow = true;
+    this.factionService.getFactions().subscribe(res => {
+      this.factionList = res.factions;
+      this.isEditNow = true;
+      Object.assign(this.editUser, this.currentUser)
+    })
   }
+
+  cancelEdit() {
+    this.isEditNow = false;
+  }
+
+  saveEdit() {
+    if(this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
+      this.editUser.isActive = true;
+    }
+    this.userService.updateUser(this.editUser)
+       .subscribe(
+        (response) => {
+          Object.assign(this.currentUser, this.editUser)
+          this.isEditNow = false;
+        },
+        (error) => {
+          if(error.error) {
+            this.errorMessage = 'User with this '
+            if(error.error.isNicknameInvalid) {
+              this.errorMessage += 'nickname'
+            }
+            if(error.error.isNicknameInvalid && error.error.isItsPINInvalid) {
+              this.errorMessage += ' and '
+            }
+            if(error.error.isItsPINInvalid) {
+              this.errorMessage += 'ITS_PIN'
+            }
+            this.errorMessage += ' has already exist.'
+          }
+        }
+      );
+  }
+
+  changeUserFaction(faction) {
+    this.editUser.faction=faction
+  }
+
 
   dataURItoBlob(dataURI): Blob {
     const byteString = atob(dataURI.split(',')[1]);
@@ -76,14 +131,6 @@ export class ProfileComponent implements OnInit {
     // }, error => {
     //   // failure, do something
     // });
-  }
-
-  cancelEdit() {
-    this.isEditNow = false;
-  }
-
-  saveEdit() {
-    console.log(this.editUser);
   }
 
   deleteProfile() {
