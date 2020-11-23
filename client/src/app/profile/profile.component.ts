@@ -19,7 +19,9 @@ export class ProfileComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   isEditNow: boolean = false;
+  isError: boolean = false;
   defaultAvatar= '';
+  errorMessage= '';
 
   constructor(
     public authService: AuthService,
@@ -73,6 +75,43 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  cancelEdit() {
+    this.isEditNow = false;
+  }
+
+  saveEdit() {
+    if(this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
+      this.editUser.isActive = true;
+    }
+    this.userService.updateUser(this.editUser)
+       .subscribe(
+        (response) => {
+          Object.assign(this.currentUser, this.editUser)
+          this.isEditNow = false;
+        },
+        (error) => {
+          if(error.error) {
+            this.errorMessage = 'User with this '
+            if(error.error.isNicknameInvalid) {
+              this.errorMessage += 'nickname'
+            }
+            if(error.error.isNicknameInvalid && error.error.isItsPINInvalid) {
+              this.errorMessage += ' and '
+            }
+            if(error.error.isItsPINInvalid) {
+              this.errorMessage += 'ITS_PIN'
+            }
+            this.errorMessage += ' has already exist.'
+          }
+        }
+      );
+  }
+
+  changeUserFaction(faction) {
+    this.editUser.faction=faction
+  }
+
+
   dataURItoBlob(dataURI): Blob {
     const byteString = atob(dataURI.split(',')[1]);
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -92,24 +131,6 @@ export class ProfileComponent implements OnInit {
     // }, error => {
     //   // failure, do something
     // });
-  }
-
-  cancelEdit() {
-    this.isEditNow = false;
-  }
-
-  saveEdit() {
-    if(this.editUser.itsPIN !='' && this.editUser.faction && this.editUser.contactLink) {
-      this.editUser.isActive = true;
-    }
-    this.userService.updateUser(this.editUser).subscribe(res => {
-      Object.assign(this.currentUser, this.editUser)
-      this.isEditNow = false;
-    })
-  }
-
-  changeUserFaction(faction) {
-    this.editUser.faction=faction
   }
 
   deleteProfile() {

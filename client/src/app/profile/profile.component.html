@@ -99,5 +99,11 @@
     <button type="button" class="btn btn-primary" (click)="cancelEdit()">cancel</button>
     <button type="button" class="btn btn-primary" (click)="saveEdit()">save</button>
     <button type="button" class="btn btn-primary" (click)="deleteProfile()">delete</button>
+
+      <p *ngIf="this.errorMessage != ''">
+        <ngb-alert [dismissible]="true">
+          {{this.errorMessage}}
+        </ngb-alert>
+      </p>
   </div>
 </div>
