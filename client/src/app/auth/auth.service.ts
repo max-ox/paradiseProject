@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '../user/user.model';
+import { UserService } from '../user/user.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -15,8 +16,17 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    private userService: UserService,
   ) {
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+  }
+
+  public get logIn(): boolean {
+    return (localStorage.getItem('access_token') !== null);
   }
 
   // Sign-up
@@ -32,6 +42,7 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
+        this.userService.setCurrentUser(res);
         localStorage.setItem('saved', new Date().getTime().toString())
         localStorage.setItem('access_token', res.access_token)
         localStorage.setItem('userId', res.userId)
@@ -44,6 +55,7 @@ export class AuthService {
     let listener = window.addEventListener('message', (message) => {
       if(message && message.data && message.data.user) {
         const user = message.data.user;
+        this.userService.setCurrentUser(user);
         localStorage.setItem('access_token', user._id)
         localStorage.setItem('userId', user.userId)
         this.router.navigate(['/profile/' + user.nickname]);

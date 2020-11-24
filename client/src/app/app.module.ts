@@ -11,14 +11,16 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { HeaderComponent } from './header/header.component';
+import { RatingComponent } from './rating/rating.component';
+import { ReportsComponent } from './reports/reports.component';
+import { ReportComponent } from './report/report.component';
 
 import { FactionService } from './services/faction.service';
-import { UserService } from './services/user.service';
+import { UserService } from './user/user.service';
 
 import { AuthGuard } from "./auth/auth.guard";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HeaderComponent } from './header/header.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    RatingComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,10 @@ import { HeaderComponent } from './header/header.component';
         { path: 'sign-in', component: LoginComponent },
         { path: 'sign-up', component: RegisterComponent },
         { path: 'profile/:nickname', component: ProfileComponent, canActivate: [AuthGuard]  },
-        { path: 'welcome', component: HomeComponent }
+        { path: 'welcome', component: HomeComponent },
+        { path: 'rating', component: RatingComponent },
+        { path: 'reports', component: ReportsComponent },
+        { path: 'report', component: ReportComponent },
     ]),
     NgbModule
   ],

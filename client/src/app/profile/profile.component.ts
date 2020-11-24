@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AuthService } from '../auth/auth.service';
 import { FactionService } from '../services/faction.service';
-import { UserService } from '../services/user.service';
-import { User } from '../models/user.model';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.model';
 
 @Component({
   selector: 'app-profile',

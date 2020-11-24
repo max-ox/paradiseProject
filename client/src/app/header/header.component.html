@@ -21,8 +21,8 @@
       </div>
 
       <div class="header-top__auth-block">
-        <div class="header-btn login-btn">
-          <span class="header-btn__label">Authorization</span>
+        <div (click)="this.goTo('sign-in')" class="header-btn login-btn">
+          <span class="header-btn__label">{{this.currentUser ? this.currentUser.nickname : 'Authorization'}}</span>
           <span class="header-btn__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47" fill="none">
               <g filter="url(#filter0_d)">
@@ -55,7 +55,7 @@
       </a>
 
       <div class="header-bottom__nav">
-        <a href="">
+        <a href="/rating">
           <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
             <g filter="url(#filter0_d)">
               <circle cx="28" cy="28" r="6" stroke="#14D0FE" stroke-width="2"/>
@@ -91,7 +91,7 @@
           </svg>
           <span>com.rating</span>
         </a>
-        <a href="">
+        <a href="/reports">
           <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
             <g filter="url(#filter0_d)">
               <circle cx="28" cy="28" r="6" stroke="#14D0FE" stroke-width="2"/>
@@ -127,7 +127,7 @@
           </svg>
           <span>reports</span>
         </a>
-        <a href="">
+        <a href="/report">
           <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
             <g filter="url(#filter0_d)">
               <circle cx="28" cy="28" r="6" stroke="#43F728" stroke-width="2"/>
