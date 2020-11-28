@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import { UserService } from '../user/user.service';
 import { AuthService } from '../auth/auth.service';
 import { User} from '../user/user.model';
-import {Subscription, Observable, throwError} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -24,18 +23,15 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.userService.getCurrentUser()
-      // .subscribe(heroes => this.currentUser = heroes)
-    // this.subscription = this.userService.getCurrentUser().subscribe(msg => this.currentUser = msg);
-    // console.log('header this.currentUser', this.currentUser)
-    console.log('header this.currentUser', this.currentUser);
+    this.subscription = this.authService.currentUserValueSubscribe().subscribe(msg => this.currentUser = msg);
   }
 
-  // public ngOnDestroy(): void {
-  //   this.subscription.unsubscribe(); // onDestroy cancels the subscribe request
-  // }
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe(); // onDestroy cancels the subscribe request
+  }
 
   goTo(url) {
+    console.log(url)
     this.router.navigate([url]);
   }
 

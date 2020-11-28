@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
 import { HelpersService } from '../_helpers/helpers.service';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import {Observable, BehaviorSubject, throwError, Subject} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 
 export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  // currentUser = {};
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
@@ -29,6 +28,10 @@ export class AuthService {
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+  }
+
+  public currentUserValueSubscribe(): Observable<User> {
+    return this.currentUserSubject;
   }
 
   logout() {
@@ -50,10 +53,10 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`/api/auth/login`, user)
       .subscribe((res: any) => {
-        this.userService.setCurrentUser(res);
         localStorage.setItem('saved', new Date().getTime().toString())
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
         localStorage.setItem('access_token', res.access_token)
-        localStorage.setItem('userId', res.userId)
         this.router.navigate(['/profile/' + res.nickname]);
       })
   }

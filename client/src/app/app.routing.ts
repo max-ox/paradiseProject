@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HeaderComponent } from './header/header.component';
 import { RatingComponent } from './rating/rating.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportComponent } from './report/report.component';
