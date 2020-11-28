@@ -5,8 +5,9 @@ const isLogin = require('../auth/middleware')
 
 router.get('/:nickname', isLogin(),
     function(req, res) {
-        if(req.params && req.params.nickname) {
-            User.findOne({ nickname: req.params.nickname}).
+
+        if(req.params && (req.params.nickname || req.params._id)) {
+            User.findOne(req.params).
                 populate('faction').
                 exec(function (err, user) {
                     console.log('user', user);

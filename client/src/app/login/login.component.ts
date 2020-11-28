@@ -18,6 +18,9 @@ export class LoginComponent {
     public authService: AuthService,
   ) {
     this.user = new User();
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   validateLogin() {

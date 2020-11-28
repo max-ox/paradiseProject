@@ -1,16 +1,34 @@
 export class User {
-  constructor(){
-    this.email = '';
-    this.password = '';
-    this.confirmPassword = '';
-    this.nickname = '';
-    this.itsPIN = '';
-    this.faction = {};
-    this.avatar = '';
-    // this.rank = '';
-    this.isActive = '';
-    this.contactLink = '';
-    this.achievements = [];
+  constructor(data?){
+    if(data && data.user) {
+      let user = data.user
+      this.email = user.email;
+      // this.password = ;
+      // this.confirmPassword = '';
+      this.nickname = user.nickname;
+      this.itsPIN = user.itsPIN;
+      this.faction = user.faction;
+      this.avatar = user.avatar;
+      // this.rank = '';
+      this.isActive = user.isActive;
+      this.contactLink = user.contactLink;
+      this.achievements = user.achievements;
+      this.token = user.token;
+    }else {
+      this.email = '';
+      this.password = '';
+      this.confirmPassword = '';
+      this.nickname = '';
+      this.itsPIN = '';
+      this.faction = {};
+      this.avatar = '';
+      // this.rank = '';
+      this.isActive = '';
+      this.contactLink = '';
+      this.token = '';
+      this.achievements = [];
+    }
+
   }
   public email;
   public password;
@@ -22,5 +40,6 @@ export class User {
   public achievements;
   public avatar;
   public isActive;
+  public token;
   // public rank;
 }

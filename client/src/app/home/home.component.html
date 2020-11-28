@@ -1,6 +1,10 @@
-<div>
+<div *ngIf="!currentUser">
   <a  [routerLink]="['../sign-in']">login</a>
 </div>
-<div>
+
+<div *ngIf="currentUser">
+  <button (click)="this.logout()">Logout</button>
+</div>
+<div *ngIf="!currentUser">
   <a  [routerLink]="['../sign-up']">sign up</a>
 </div>

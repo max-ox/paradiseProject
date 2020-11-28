@@ -14,19 +14,26 @@ import {Subscription, Observable, throwError} from 'rxjs';
 export class HeaderComponent implements OnInit {
   subscription: Subscription;
   currentUser: User;
+
   constructor(
-    public router: Router,
+    private authService: AuthService,
     private userService: UserService,
-    public authService: AuthService
+    public router: Router
   ) {
+    this.currentUser = this.authService.currentUserValue;
   }
 
   ngOnInit(): void {
     // this.userService.getCurrentUser()
       // .subscribe(heroes => this.currentUser = heroes)
-    this.subscription = this.userService.getCurrentUser().subscribe(msg => this.currentUser = msg);
+    // this.subscription = this.userService.getCurrentUser().subscribe(msg => this.currentUser = msg);
     // console.log('header this.currentUser', this.currentUser)
+    console.log('header this.currentUser', this.currentUser);
   }
+
+  // public ngOnDestroy(): void {
+  //   this.subscription.unsubscribe(); // onDestroy cancels the subscribe request
+  // }
 
   goTo(url) {
     this.router.navigate([url]);
