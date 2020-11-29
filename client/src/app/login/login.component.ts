@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '../user/user.model';
 import { Router } from '@angular/router';
 import {AuthService} from '../auth/auth.service';
 
@@ -18,6 +18,9 @@ export class LoginComponent {
     public authService: AuthService,
   ) {
     this.user = new User();
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   validateLogin() {

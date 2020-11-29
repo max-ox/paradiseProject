@@ -3,16 +3,22 @@ var router = express.Router();
 var User = require('../db/models/user');
 const isLogin = require('../auth/middleware')
 
-router.get('/:nickname', isLogin(),
+router.get('/:nickname',
     function(req, res) {
+    // console.log('req.session.passport.user', req.session.passport.user);
         if(req.params && req.params.nickname) {
-            User.findOne({ nickname: req.params.nickname}).
+            User.findOne(req.params).
                 populate('faction').
                 exec(function (err, user) {
                     console.log('user', user);
                     if(err) {
                         res.status(500).send({data:err});
                     } else {
+                        // let currentUserId = '';
+                        // if(req.session && req.session.passport && req.session.passport.user) {
+                        //     currentUserId = req.session.passport.user;
+                        // }
+                        // user.isCurrent = currentUserId === user._id ? true : false;
                         res.status(200).send({user});
                     }
                 })

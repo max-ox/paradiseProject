@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import { Faction } from '../models/faction.model';
+import {Observable, throwError} from 'rxjs';
 
 @Injectable()
-export class UserService {
+export class HelpersService {
 
   constructor(private http: HttpClient){}
 
-  public updateUser(user) : any{
 
-    const headers = new HttpHeaders({
-      'Cache-Control' : 'no-cache, no-store, must-revalidate'
-    })
-    let api = `/api/user`;
-    return this.http.put(api, {user}, {headers})
+  getToken() {
+    return localStorage.getItem('access_token');
   }
+
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('access_token');
+    return (authToken !== null) ? true : false;
+  }
+
 
   // Error
   handleError(error: HttpErrorResponse) {
@@ -26,6 +29,8 @@ export class UserService {
       // server-side error
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    // this.doLogout();
     return throwError(msg);
   }
+
 }

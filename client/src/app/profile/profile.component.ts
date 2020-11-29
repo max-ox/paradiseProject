@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { AuthService } from '../auth/auth.service';
 import { FactionService } from '../services/faction.service';
-import { UserService } from '../services/user.service';
-import { User } from '../models/user.model';
+import { HelpersService } from '../_helpers/helpers.service';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -22,18 +23,16 @@ export class ProfileComponent implements OnInit {
   isError: boolean = false;
   defaultAvatar= '';
   errorMessage= '';
+  userID= '';
 
   constructor(
     public authService: AuthService,
     public factionService: FactionService,
+    public helpersService: HelpersService,
     public userService: UserService,
     private actRoute: ActivatedRoute
   ) {
     this.editUser = new User();
-    // let id = this.actRoute.snapshot.paramMap.get('id');
-    // this.authService.getUserProfile(id).subscribe(res => {
-    //   this.currentUser = res.user;
-    // })
   }
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
