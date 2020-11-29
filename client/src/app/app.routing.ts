@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RatingComponent } from './rating/rating.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportComponent } from './report/report.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 import { AuthGuard } from "./auth/auth.guard";
@@ -20,9 +21,10 @@ const routes: Routes = [
   { path: 'rating', component: RatingComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },
+  { path: '404', component: PageNotFoundComponent },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '404' }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

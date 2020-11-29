@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { RatingComponent } from './rating/rating.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportComponent } from './report/report.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { FactionService } from './services/faction.service';
 import { UserService } from './user/user.service';
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     RatingComponent,
     ReportsComponent,
-    ReportComponent
+    ReportComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

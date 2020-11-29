@@ -107,6 +107,12 @@
       </p>
   </div>
 </div>
-<div class="row" *ngIf="!this.currentUser">
-    <p>User with this nickname doesn't exist</p>
+<div *ngIf="!this.currentUser">
+    <div class="alert alert-warning fade show w-100" role="alert">
+        <span class="corner-border-top"></span>
+        <p class="alert-heading">Warning!</p>
+        <hr>
+        <p>User with this nickname doesn't exist</p>
+        <span class="corner-border-bottom"></span>
+    </div>
 </div>

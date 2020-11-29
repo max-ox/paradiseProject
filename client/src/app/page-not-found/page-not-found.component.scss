@@ -1,0 +1,137 @@
+$highlights-green: #43F728;
+$highlights-blue: #14D0FE;
+$highlights-blue_additional: #5CA7E0;
+$highlights-red: #FF1E1E;
+$highlights-warning: #B78702;
+$dark-area_border: #152534;
+$dark-area_background: #020305;
+
+.error-container {
+    * {
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .glitch {
+        color: rgb(86, 104, 121);
+        position: relative;
+        font-size: 6vw;
+        animation: glitch 10s 10s infinite;
+    }
+
+    .glitch::before {
+        content: attr(data-text);
+        position: absolute;
+        left: -1px;
+        text-shadow: -1px 0 $highlights-blue_additional;
+        background: #010C12;
+        overflow: hidden;
+        top: 0;
+        animation: noise-1 6s linear infinite alternate-reverse, glitch 10s 10.05s infinite;
+    }
+
+    .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 1px;
+        text-shadow: -1px 0 rgba($highlights-blue_additional, .4);
+        background: #010C12;
+        overflow: hidden;
+        top: 0;
+        animation: noise-2 6s linear infinite alternate-reverse, glitch 10s 10s infinite;
+    }
+
+    @keyframes glitch {
+        1%{
+            transform: rotateX(10deg) skewX(90deg);
+        }
+        2%{
+            transform: rotateX(0deg) skewX(0deg);
+        }
+    }
+
+    .scanlines {
+        overflow: hidden;
+        mix-blend-mode: difference;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .scanlines::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        background: repeating-linear-gradient(
+                        to bottom,
+                        transparent 0%,
+                        rgba(255, 255, 255, 0.05) .5%,
+                        transparent 1%
+        );
+        animation: fudge 7s ease-in-out alternate infinite;
+    }
+
+    .glow {
+        @extend .glitch;
+        text-shadow: 0 0 1000px $highlights-blue;
+        color: transparent;
+        position: absolute;
+        top: 0;
+    }
+
+    .hint {
+        font-weight: 100;
+        font-size: 1.3vw;
+        color: $highlights-blue;
+        text-transform: uppercase;
+        letter-spacing: 1em;
+        text-align: center;
+        animation: glitch-2 5s 5.02s infinite;
+    }
+
+
+}
+@keyframes noise-1 {
+    $steps: 10;
+    @for $i from 1 through $steps {
+        #{percentage($i*(1/$steps))} {
+            $top: random(100);
+            $bottom: random(101 - $top);
+            clip-path: inset(#{$top}px 0 #{$bottom}px 0);
+        }
+    }
+}
+
+@keyframes noise-2 {
+    $steps: 20;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            $top: random(100);
+            $bottom: random(101 - $top);
+            clip-path: inset(#{$top}px 0 #{$bottom}px 0);
+        }
+    }
+}
+@keyframes fudge {
+    from {
+        transform: translate(0px, -2%);
+    }
+    to {
+        transform: translate(0px, 0%);
+    }
+}
+@keyframes glitch-2 {
+    1%{
+        transform: rotateX(10deg) skewX(70deg);
+    }
+    2%{
+        transform: rotateX(0deg) skewX(0deg);
+    }
+}

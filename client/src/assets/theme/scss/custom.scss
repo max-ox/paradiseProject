@@ -24,7 +24,7 @@ body {
     line-height: line-height("base");
     //@include text-shadow(theme-color("highlight"));
     color: theme-color("primary");
-    overflow-x: hidden; //Fix for fullwidth-container
+    //overflow-x: hidden; //Fix for fullwidth-container
   
     height: 100%;
 
@@ -57,6 +57,7 @@ app-root {
 }
 
 .main-container {
+    position: relative;
     padding-top: 46px;
     flex-grow: 1;
 }
@@ -180,7 +181,7 @@ button{
     font-weight: font-weight("bold");
 }
 .headline-alert {
-    font-family: font-family("numbers");
+    font-family: font-family("base"), sans-serif;
     font-size: font-size("x-large")*1.2;
     line-height: line-height("x-large")*1.2;
     text-transform: uppercase;
