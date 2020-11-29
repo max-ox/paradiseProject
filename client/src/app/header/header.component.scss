@@ -10,19 +10,22 @@ header {
   padding: 0;
   background: #001725;
   border-bottom: 4px solid #182D42;
+  box-shadow: 0 10px 26px #000000;
 }
 
 .header-top {
+  border-bottom: 4px solid #111822;
   background: linear-gradient(180deg, #0A0B0F 8.33%, #0C0F14 29.17%, #12171B 46.88%, #202D3A 90.1%, #202D3A 97.85%, #28323D 98.77%);
   background-size: auto 44px;
-  border-bottom: 4px solid #111822;
   box-shadow: 0px 0px 8px #000000;
 }
 
 .header-top__inner,
 .header-bottom__inner {
-  max-width: 1300px;
+  max-width: 1280px;
   margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
   display: flex;
   justify-content: space-between;
 }
