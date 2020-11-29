@@ -1,8 +1,27 @@
-<form class="form-signin">
-  <h2 class="form-signin-heading">Please sign in</h2>
-  <label for="inputEmail" class="sr-only">Email address</label>
-  <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-  <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Sign in</button>
-  <button class="btn btn-lg btn-primary btn-block" (click)="loginVK();" type="button">loginVK</button>
-</form>
+<div class="card solid bg-primary card-login">
+  <div class="ep-card-header">
+    Authorization
+  </div>
+  <div class="card-body">
+    <form class="form-signin">
+      <div class="form-group">
+        <label for="inputEmail">Login</label>
+        <input name="email" [(ngModel)] = "user.email" type="email" id="inputEmail" class="form-control" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Password</label>
+        <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" required>
+      </div>
+      <div>
+        <a href="#" class="ep-link-with-indicator">password restore</a>
+      </div>
+      <div>
+        <a [routerLink]="['../sign-up']" class="ep-link-with-indicator">Registration</a>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer text-right">
+    <button class="btn btn-sm btn-highlight mb-nzero rounded-0" (click)="loginVK();" type="button">loginVK</button>
+    <button class="btn btn-sm btn-highlight mb-nzero rounded-0 ml-2" (click)="validateLogin();" type="button">Sign in</button>
+  </div>
+</div>
