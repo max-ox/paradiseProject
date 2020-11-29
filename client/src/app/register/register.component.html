@@ -1,92 +1,94 @@
-<div class="card solid bg-primary card-register">
-  <div class="ep-card-header">
-    Registration
-  </div>
-  <div class="card-body">
-    <!--<form class="form-signup" [formGroup]="registraionForm">-->
-    <form class="form-signup"  #signupForm="ngForm">
-      <div *ngIf="this.errorMessage">{{this.errorMessage}}</div>
-      <div class="form-group">
-        <label>login</label>
-        <input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel"
-               required />
-        <div *ngIf="email.invalid && (email.dirty || email.touched)"
-             class="alert alert-danger">
-          <div *ngIf="email.errors.required">
-            field is required
+<div class="centred">
+  <div class="card solid bg-primary card-register w-100">
+    <div class="ep-card-header">
+      Registration
+    </div>
+    <div class="card-body">
+      <!--<form class="form-signup" [formGroup]="registraionForm">-->
+      <form class="form-signup"  #signupForm="ngForm">
+        <div *ngIf="this.errorMessage">{{this.errorMessage}}</div>
+        <div class="form-group">
+          <label>login</label>
+          <input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel"
+                 required />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)"
+               class="alert alert-danger">
+            <div *ngIf="email.errors.required">
+              field is required
+            </div>
+          </div>
+          <small>Enter your email address in this field.</small>
+        </div>
+        <div class="form-group">
+          <label>password</label>
+          <input class="form-control" name="password" type="password"  [(ngModel)]="user.password" #password="ngModel"
+                 required/>
+          <div *ngIf="password.invalid && (password.dirty || password.touched)"
+               class="alert alert-danger">
+            <div *ngIf="password.errors.required">
+              field is required
+            </div>
           </div>
         </div>
-        <small>Enter your email address in this field.</small>
-      </div>
-      <div class="form-group">
-        <label>password</label>
-        <input class="form-control" name="password" type="password"  [(ngModel)]="user.password" #password="ngModel"
-               required/>
-        <div *ngIf="password.invalid && (password.dirty || password.touched)"
-             class="alert alert-danger">
-          <div *ngIf="password.errors.required">
-            field is required
+        <div class="form-group">
+          <label>confirm password</label>
+          <input class="form-control" name="confirmpassword" type="password"  [(ngModel)]="user.confirmPassword" #confirmpassword="ngModel"
+                 required/>
+          <div *ngIf="(confirmpassword.invalid || user.password !== user.confirmPassword) && (confirmpassword.dirty || confirmpassword.touched)"
+               class="alert alert-danger">
+            <div *ngIf="user.password !== user.confirmPassword">
+              password must match
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label>confirm password</label>
-        <input class="form-control" name="confirmpassword" type="password"  [(ngModel)]="user.confirmPassword" #confirmpassword="ngModel"
-               required/>
-        <div *ngIf="(confirmpassword.invalid || user.password !== user.confirmPassword) && (confirmpassword.dirty || confirmpassword.touched)"
-             class="alert alert-danger">
-          <div *ngIf="user.password !== user.confirmPassword">
-            password must match
+        <div class="form-group">
+          <label>nickname</label>
+          <input class="form-control" name="nickname" type="text"  [(ngModel)]="user.nickname" #nickname="ngModel"
+                 required/>
+          <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)"
+               class="alert alert-danger">
+            <div *ngIf="nickname.errors.required">
+              field is required
+            </div>
+          </div>
+          <small>A uniquie name by which you will be known to other commanders</small>
+        </div>
+        <div>
+          <label for="inputITSPIN" class="sr-only">its pin</label>
+          <input name="itspin" [(ngModel)] = "user.itsPIN" type="text" id="inputITSPIN" class="form-control">
+        </div>
+        <div>
+          <label>faction</label>
+          <select class="form-control" name="faction" [(ngModel)]="user.faction" [ngModelOptions]="{standalone: true}"
+                  #faction="ngModel" required>
+            <option disabled >Select faction</option>
+            <option *ngFor="let faction of factions" [ngValue]="faction._id">{{faction.name}}</option>
+          </select>
+          <div *ngIf="faction.invalid && (faction.dirty || faction.touched)"
+               class="alert alert-danger">
+            <div *ngIf="faction.errors.required">
+              field is required
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label>nickname</label>
-        <input class="form-control" name="nickname" type="text"  [(ngModel)]="user.nickname" #nickname="ngModel"
-               required/>
-        <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)"
-             class="alert alert-danger">
-          <div *ngIf="nickname.errors.required">
-            field is required
+        <div>
+          <label>contact link</label>
+          <input class="form-control" name="contactLink" type="text"  [(ngModel)]="user.contactLink" #contactLink="ngModel"
+                 required/>
+          <div *ngIf="contactLink.invalid && (contactLink.dirty || contactLink.touched)"
+               class="alert alert-danger">
+            <div *ngIf="contactLink.errors.required">
+              field is required
+            </div>
           </div>
+          <small>Link to a bla bla</small>
         </div>
-        <small>A uniquie name by which you will be known to other commanders</small>
-      </div>
-      <div>
-        <label for="inputITSPIN" class="sr-only">its pin</label>
-        <input name="itspin" [(ngModel)] = "user.itsPIN" type="text" id="inputITSPIN" class="form-control">
-      </div>
-      <div>
-        <label>faction</label>
-        <select class="form-control" name="faction" [(ngModel)]="user.faction" [ngModelOptions]="{standalone: true}"
-                #faction="ngModel" required>
-          <option disabled >Select faction</option>
-          <option *ngFor="let faction of factions" [ngValue]="faction._id">{{faction.name}}</option>
-        </select>
-        <div *ngIf="faction.invalid && (faction.dirty || faction.touched)"
-             class="alert alert-danger">
-          <div *ngIf="faction.errors.required">
-            field is required
-          </div>
+        <div>
+          checkbox
         </div>
-      </div>
-      <div>
-        <label>contact link</label>
-        <input class="form-control" name="contactLink" type="text"  [(ngModel)]="user.contactLink" #contactLink="ngModel"
-               required/>
-        <div *ngIf="contactLink.invalid && (contactLink.dirty || contactLink.touched)"
-             class="alert alert-danger">
-          <div *ngIf="contactLink.errors.required">
-            field is required
-          </div>
-        </div>
-        <small>Link to a bla bla</small>
-      </div>
-      <div>
-        checkbox
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" [disabled]="!signupForm.form.valid"
-              (click)="validateRegister();" type="button">continue</button>
-    </form>
+        <button class="btn btn-lg btn-primary btn-block" [disabled]="!signupForm.form.valid"
+                (click)="validateRegister();" type="button">continue</button>
+      </form>
+    </div>
   </div>
 </div>

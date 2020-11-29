@@ -25,6 +25,8 @@ body {
     //@include text-shadow(theme-color("highlight"));
     color: theme-color("primary");
     overflow-x: hidden; //Fix for fullwidth-container
+  
+    height: 100%;
 
     //Proper word wrap
     overflow-wrap: break-word;
@@ -35,8 +37,35 @@ body {
     hyphens: auto;
 }
 
+body {
+    min-height: 100%;
+    width: 100%;
+}
+
+app-root {
+    height: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+        width: 100%;
+        flex-shrink: 0;
+    }
+}
+
 .main-container {
-  padding-top: 46px;
+    padding-top: 46px;
+    flex-grow: 1;
+}
+
+.centred {
+    min-height: calc(100vh - 356px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container {
