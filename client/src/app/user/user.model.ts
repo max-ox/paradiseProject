@@ -14,6 +14,7 @@ export class User {
       this.contactLink = user.contactLink;
       this.achievements = user.achievements;
       this.token = user.token;
+      this.isCurrent = user.isCurrent;
     }else {
       this.email = '';
       this.password = '';
@@ -27,6 +28,7 @@ export class User {
       this.contactLink = '';
       this.token = '';
       this.achievements = [];
+      this.isCurrent = false;
     }
 
   }
@@ -41,5 +43,6 @@ export class User {
   public avatar;
   public isActive;
   public token;
+  public isCurrent;
   // public rank;
 }
