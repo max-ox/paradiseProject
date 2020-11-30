@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'welcome' },
   { path: 'sign-in', component: LoginComponent },
   { path: 'sign-up', component: RegisterComponent },
-  { path: 'profile/:nickname', component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'profile/:nickname', component: ProfileComponent },
   { path: 'welcome', component: HomeComponent },
   { path: 'rating', component: RatingComponent },
   { path: 'reports', component: ReportsComponent },
