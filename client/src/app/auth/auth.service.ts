@@ -39,6 +39,9 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('access_token');
     this.currentUserSubject.next(null);
+    this.http.get('/api/auth/logout').subscribe((res: any) => {
+      console.log('logout, res', res);
+    })
   }
 
   // Sign-up

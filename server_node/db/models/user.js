@@ -22,5 +22,6 @@ var UserSchema = new Schema(
         isDeleted: {type: Boolean}
     }
 );
+
 //Export model
 module.exports = mongoose.model('User', UserSchema);

@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
   isError: boolean = false;
   defaultAvatar= '';
   errorMessage= '';
-  userID= '';
 
   constructor(
     public authService: AuthService,

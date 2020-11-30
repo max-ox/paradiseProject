@@ -41,21 +41,24 @@ function initPassport () {
             scope: ['email'] ,
             profileFields: ['email']
         },
-        function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
-            console.log('myVerifyCallbackFn profile', profile)
+         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
+            console.log('myVerifyCallbackFn accessToken', accessToken)
+            // todo: when add email\password registration add search by email;
             User.findOne({
-                'email':  profile.emails[0].value
-            }, function(err, user) {
+                vkontakteId: profile.id
+            }, async function(err, user) {
                 console.log('err, user', err, user);
                 if (err) {
                     return done(err);
                 }
                 //No user was found... so create a new user with values from Facebook (all the profile. stuff)
                 if (!user) {
+                    const isUserExit = await User.exists({ nickname: profile.username });
                     user = new User({
                         login: profile.displayName,
-                        nickname: profile.username,
+                        nickname: isUserExit ? profile.id : profile.nickname,
                         email: profile.emails[0].value,
+                        avatar: profile.photos[0].value,
                         contactLink: profile.profileUrl,
                         vkontakteId: profile.id,
                         isActive: false

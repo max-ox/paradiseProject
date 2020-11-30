@@ -10,6 +10,8 @@ router.get('/vkontakte/callback',
         failureRedirect: '/login'
     }),
     function(req, res) {
+        // res.status(200).send(req.user);
+        // console.log('req', req);
         var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
         responseHTML = responseHTML.replace('%value%', JSON.stringify({
             user: req.user
