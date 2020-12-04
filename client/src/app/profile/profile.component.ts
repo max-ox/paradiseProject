@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   croppedImage: any = '';
   isEditNow: boolean = false;
   isError: boolean = false;
+  isCurrent: boolean = false;
   defaultAvatar= '';
   errorMessage= '';
 
@@ -55,7 +56,8 @@ export class ProfileComponent implements OnInit {
     let nickname = this.actRoute.snapshot.paramMap.get('nickname');
     this.authService.getUserProfile(nickname).subscribe(res => {
       this.currentUser = res.user;
-      if(this.currentUser && !this.currentUser.isActive) {
+      this.isCurrent = res.isCurrent;
+      if(this.currentUser && !this.currentUser.isActive && this.isCurrent) {
         this.factionService.getFactions().subscribe(res => {
           this.factionList = res.factions;
           this.isEditNow = true;
@@ -88,15 +90,15 @@ export class ProfileComponent implements OnInit {
           this.isEditNow = false;
         },
         (error) => {
-          if(error.error) {
+          if(error) {
             this.errorMessage = 'User with this '
-            if(error.error.isNicknameInvalid) {
+            if(error.isNicknameInvalid) {
               this.errorMessage += 'nickname'
             }
-            if(error.error.isNicknameInvalid && error.error.isItsPINInvalid) {
+            if(error.isNicknameInvalid && error.error.isItsPINInvalid) {
               this.errorMessage += ' and '
             }
-            if(error.error.isItsPINInvalid) {
+            if(error.isItsPINInvalid) {
               this.errorMessage += 'ITS_PIN'
             }
             this.errorMessage += ' has already exist.'

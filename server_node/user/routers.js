@@ -2,24 +2,33 @@ var express = require('express');
 var router = express.Router();
 var User = require('../db/models/user');
 const isLogin = require('../auth/middleware')
+var config = require('../config');
+var jwt = require('jsonwebtoken');
 
 router.get('/:nickname',
     function(req, res) {
-    // console.log('req.session.passport.user', req.session.passport.user);
         if(req.params && req.params.nickname) {
             User.findOne(req.params).
                 populate('faction').
                 exec(function (err, user) {
-                    console.log('user', user);
+                    console.log('get profile user', user);
                     if(err) {
                         res.status(500).send({data:err});
                     } else {
-                        // let currentUserId = '';
-                        // if(req.session && req.session.passport && req.session.passport.user) {
-                        //     currentUserId = req.session.passport.user;
-                        // }
-                        // user.isCurrent = currentUserId === user._id ? true : false;
-                        res.status(200).send({user});
+                        let currentUserId = '';
+                        let isCurrent;
+                        if(req.session && req.session.passport && req.session.passport.user) {
+                            const decoded = jwt.verify(req.session.passport.user, config.nodeAuthSecret);
+                            currentUserId = decoded._id;
+                        }
+                        console.log('currentUserId', currentUserId);
+                        console.log('currentUserId', user._id);
+                        if(currentUserId && currentUserId == user._id) {
+                            isCurrent = true;
+                        } else {
+                            isCurrent = false;
+                        }
+                        res.status(200).send({user, isCurrent});
                     }
                 })
         } else {

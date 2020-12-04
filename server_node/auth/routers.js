@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport')
+var User = require('../db/models/user')
 /* GET users listing. */
 
 router.get('/vkontakte', passport.authenticate('vkontakte'));
@@ -10,11 +11,10 @@ router.get('/vkontakte/callback',
         failureRedirect: '/login'
     }),
     function(req, res) {
-        // res.status(200).send(req.user);
-        // console.log('req', req);
         var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
         responseHTML = responseHTML.replace('%value%', JSON.stringify({
-            user: req.user
+            nickname: req.user.user.nickname,
+            sessionID: req.sessionID
         }));
         res.status(200).send(responseHTML);
     }

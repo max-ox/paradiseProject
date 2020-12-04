@@ -9,7 +9,7 @@
       <p><strong>its_pin:</strong> {{this.currentUser.itsPIN}}</p>
       <p *ngIf="this.currentUser.faction"><strong>faction:</strong> {{this.currentUser.faction.name}}</p>
       <!--      <p *ngIf="this.currentUser.rank"><strong>rank:</strong> {{this.currentUser.rank.name}}</p>-->
-      <p>
+      <p *ngIf="this.isCurrent">
         <button type="button" class="btn btn-primary" (click)="startEdit()">Edit profile</button>
       </p>
     </div>
