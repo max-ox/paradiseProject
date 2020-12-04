@@ -21,8 +21,8 @@
       </div>
 
       <div class="header-top__auth-block">
-        <div *ngIf="this.currentUser" (click)="this.goTo('profile/'+this.currentUser.nickname)" class="header-btn login-btn">
-          <span class="header-btn__label">{{this.currentUser.nickname}}</span>
+        <div *ngIf="this.currentUser" (click)="this.goTo('profile', this.currentUser)" class="header-btn login-btn">
+          <span class="header-btn__label">{{this.currentUser}}</span>
           <span class="header-btn__icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47" fill="none">
               <g filter="url(#filter0_d)">
