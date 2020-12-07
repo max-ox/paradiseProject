@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+
 import { AuthService } from '../auth/auth.service';
 import { FactionService } from '../services/faction.service';
 import { HelpersService } from '../_helpers/helpers.service';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -21,9 +23,10 @@ export class ProfileComponent implements OnInit {
   croppedImage: any = '';
   isEditNow: boolean = false;
   isError: boolean = false;
+  isCurrent: boolean = false;
   defaultAvatar= '';
   errorMessage= '';
-  userID= '';
+  subscriptionParams: Subscription;
 
   constructor(
     public authService: AuthService,
@@ -53,17 +56,24 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let nickname = this.actRoute.snapshot.paramMap.get('nickname');
-    this.authService.getUserProfile(nickname).subscribe(res => {
-      this.currentUser = res.user;
-      if(this.currentUser && !this.currentUser.isActive) {
-        this.factionService.getFactions().subscribe(res => {
-          this.factionList = res.factions;
-          this.isEditNow = true;
-          Object.assign(this.editUser, this.currentUser);
-        })
-      }
-    })
+    // let nickname = this.actRoute.snapshot.paramMap.get('nickname');
+    this.subscriptionParams = this.actRoute.params.subscribe(routeParams => {
+      this.authService.getUserProfile(routeParams.nickname).subscribe(res => {
+        this.currentUser = res.user;
+        this.isCurrent = res.isCurrent;
+        if(this.currentUser && !this.currentUser.isActive && this.isCurrent) {
+          this.factionService.getFactions().subscribe(res => {
+            this.factionList = res.factions;
+            this.isEditNow = true;
+            Object.assign(this.editUser, this.currentUser);
+          })
+        }
+      })
+    });
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptionParams.unsubscribe(); // onDestroy cancels the subscribe request
   }
 
   startEdit() :void {
@@ -89,15 +99,15 @@ export class ProfileComponent implements OnInit {
           this.isEditNow = false;
         },
         (error) => {
-          if(error.error) {
+          if(error) {
             this.errorMessage = 'User with this '
-            if(error.error.isNicknameInvalid) {
+            if(error.isNicknameInvalid) {
               this.errorMessage += 'nickname'
             }
-            if(error.error.isNicknameInvalid && error.error.isItsPINInvalid) {
+            if(error.isNicknameInvalid && error.error.isItsPINInvalid) {
               this.errorMessage += ' and '
             }
-            if(error.error.isItsPINInvalid) {
+            if(error.isItsPINInvalid) {
               this.errorMessage += 'ITS_PIN'
             }
             this.errorMessage += ' has already exist.'

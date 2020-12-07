@@ -30,9 +30,14 @@ export class HeaderComponent implements OnInit {
     this.subscription.unsubscribe(); // onDestroy cancels the subscribe request
   }
 
-  goTo(url) {
+  goTo(url, param?) {
     console.log(url)
-    this.router.navigate([url]);
+    if(param) {
+      this.router.navigate([url, param]);
+    } else {
+      this.router.navigate([url]);
+    }
+
   }
 
 }

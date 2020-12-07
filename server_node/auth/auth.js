@@ -1,5 +1,6 @@
 const passport = require('passport')
 const bcrypt = require('bcrypt')
+var jwt = require('jsonwebtoken');
 const LocalStrategy = require('passport-local').Strategy
 var config = require('../config');
 var User = require('../db/models/user');
@@ -21,14 +22,17 @@ function findUser (id, callback) {
     });
 }
 
-passport.serializeUser(function (user, cb) {
-    console.log('serializeUser user', user)
-    cb(null, user._id)
+passport.serializeUser(function (res, cb) {
+    console.log('serializeUser user', res)
+    const token = jwt.sign({ _id: res.user._id, accessToken: res.accessToken }, config.nodeAuthSecret);
+    cb(null, token)
 })
 
-passport.deserializeUser(function (id, cb) {
-    console.log('deserializeUser id', id)
-    findUser(id, cb)
+passport.deserializeUser(function (token, cb) {
+
+    const decoded = jwt.verify(token, config.nodeAuthSecret);
+    console.log('deserializeUser decoded', decoded)
+    findUser(decoded._id, cb)
 })
 
 
@@ -41,33 +45,37 @@ function initPassport () {
             scope: ['email'] ,
             profileFields: ['email']
         },
-        function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
+         function myVerifyCallbackFn(accessToken, refreshToken, params, profile, done) {
+            console.log('myVerifyCallbackFn accessToken', accessToken)
             console.log('myVerifyCallbackFn profile', profile)
+            // todo: when add email\password registration add search by email;
             User.findOne({
-                'email':  profile.emails[0].value
-            }, function(err, user) {
+                vkontakteId: profile.id
+            }, async function(err, user) {
                 console.log('err, user', err, user);
                 if (err) {
                     return done(err);
                 }
                 //No user was found... so create a new user with values from Facebook (all the profile. stuff)
                 if (!user) {
+                    const isUserExit = await User.exists({ nickname: profile.username });
                     user = new User({
                         login: profile.displayName,
-                        nickname: profile.username,
+                        nickname: isUserExit ? profile.id : profile.username,
                         email: profile.emails[0].value,
+                        avatar: profile.photos[0].value,
                         contactLink: profile.profileUrl,
                         vkontakteId: profile.id,
                         isActive: false
                     });
                     user.save(function(err) {
                         if (err) console.log('user.save err ', err);
-                        return done(err, user);
+                        return done(err, {user, accessToken});
                     });
                 } else {
                     console.log('found user user', user)
                     //found user. Return
-                    return done(err, user);
+                    return done(err, {user, accessToken});
                 }
             });
         }

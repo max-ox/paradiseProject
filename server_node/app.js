@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 3600000, //1 Hour
+        maxAge:config.refreshTokenLifetimeDays
     },
     // Место хранения можно выбрать из множества вариантов, это и БД и файлы и Memcached.
     store: new MongoStore({

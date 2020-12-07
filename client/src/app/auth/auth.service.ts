@@ -39,6 +39,9 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('access_token');
     this.currentUserSubject.next(null);
+    this.http.get('/api/auth/logout').subscribe((res: any) => {
+      console.log('logout, res', res);
+    })
   }
 
   // Sign-up
@@ -65,14 +68,14 @@ export class AuthService {
   signInVK() {
     window.open('/api/auth/vkontakte',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
     let listener = window.addEventListener('message', (message) => {
-      if(message && message.data && message.data.user) {
-        const user = message.data.user;
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        localStorage.setItem('access_token', user._id)
+      if(message && message.data && message.data.nickname) {
+        const nickname = message.data.nickname;
+        localStorage.setItem('currentUser', JSON.stringify(nickname));
+        this.currentUserSubject.next(nickname);
+        localStorage.setItem('access_token', message.data.sessionID)
         // return user;
 
-        this.router.navigate(['/profile/' + user.nickname]);
+        this.router.navigate(['/profile/' + nickname]);
       }
     });
   }

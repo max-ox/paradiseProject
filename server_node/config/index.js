@@ -10,7 +10,7 @@ module.exports = {
     database,
     VK_APP_ID:  process.env.VK_APP_ID,
     VK_APP_SECRET: process.env.VK_APP_SECRET,
-    VK_callbackURL : process.env.FRONTEND_ORIGIN+'/api/auth/vkontakte/callback',
+    VK_callbackURL : process.env.BACKEND_ORIGIN+'/api/auth/vkontakte/callback',
 
     port: process.env.PORT || DEFAULT_HTTP_PORT,
 
