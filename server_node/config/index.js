@@ -1,6 +1,6 @@
 const database = require('./database');
 
-const DEFAULT_REFRESH_TOKEN_LIFETIME_DAYS = 30;
+const DEFAULT_REFRESH_TOKEN_LIFETIME_DAYS = 3600000;
 const DEFAULT_SMTP_PORT = 587;
 const DEFAULT_HTTP_PORT = 3000;
 

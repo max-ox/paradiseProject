@@ -30,8 +30,19 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  public setCurrentUserValue(nickname) {
+    this.currentUserSubject.next(nickname);
+  }
+
   public currentUserValueSubscribe(): Observable<User> {
     return this.currentUserSubject;
+  }
+
+  public checkServerSession() {
+    return this.http.get('/api/user/isLogin')
+      .pipe(
+          catchError(this.helpersService.handleError)
+      )
   }
 
   logout() {
