@@ -59,8 +59,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // let nickname = this.actRoute.snapshot.paramMap.get('nickname');
-    this.isEditNow = false;
+
     this.subscriptionParams = this.actRoute.params.subscribe(routeParams => {
+      this.isEditNow = false;
       console.log('dfghjkl', this.isEditNow);
       this.authService.getUserProfile(routeParams.nickname).subscribe(res => {
         this.currentUser = res.user;
