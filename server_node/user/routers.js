@@ -5,6 +5,9 @@ const isLogin = require('../auth/middleware')
 var config = require('../config');
 var jwt = require('jsonwebtoken');
 
+
+router.get('/isLogin', isLogin());
+
 router.get('/:nickname',
     function(req, res) {
         if(req.params && req.params.nickname) {
@@ -17,13 +20,14 @@ router.get('/:nickname',
                     } else {
                         let currentUserId = '';
                         let isCurrent;
+                        console.log('req.session.passport', req.session);
                         if(req.session && req.session.passport && req.session.passport.user) {
                             const decoded = jwt.verify(req.session.passport.user, config.nodeAuthSecret);
                             currentUserId = decoded._id;
                         }
-                        console.log('currentUserId', currentUserId);
-                        console.log('currentUserId', user._id);
-                        if(currentUserId && currentUserId == user._id) {
+                        // console.log('currentUserId', currentUserId);
+                        // console.log('currentUserId', user._id);
+                        if(currentUserId && user && currentUserId == user._id) {
                             isCurrent = true;
                         } else {
                             isCurrent = false;
