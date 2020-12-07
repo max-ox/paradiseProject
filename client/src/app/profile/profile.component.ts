@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 import { FactionService } from '../services/faction.service';
@@ -33,7 +34,8 @@ export class ProfileComponent implements OnInit {
     public factionService: FactionService,
     public helpersService: HelpersService,
     public userService: UserService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    public router: Router
   ) {
     this.editUser = new User();
   }
@@ -57,10 +59,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // let nickname = this.actRoute.snapshot.paramMap.get('nickname');
+    this.isEditNow = false;
     this.subscriptionParams = this.actRoute.params.subscribe(routeParams => {
+      console.log('dfghjkl', this.isEditNow);
       this.authService.getUserProfile(routeParams.nickname).subscribe(res => {
         this.currentUser = res.user;
         this.isCurrent = res.isCurrent;
+        if(this.isCurrent) {
+          this.authService.setCurrentUserValue(res.user.nickname)
+        }
+        console.log('this.currentUser.isActive', this.currentUser.isActive);
         if(this.currentUser && !this.currentUser.isActive && this.isCurrent) {
           this.factionService.getFactions().subscribe(res => {
             this.factionList = res.factions;
@@ -95,8 +103,14 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.editUser)
        .subscribe(
         (response) => {
-          Object.assign(this.currentUser, this.editUser)
-          this.isEditNow = false;
+          if(this.editUser.nickname != this.currentUser.nickname) {
+            console.log('this.editUser.nickname', this.editUser.nickname)
+            this.router.navigate(['profile', this.editUser.nickname]);
+           // location.reload(true);
+          } else {
+            Object.assign(this.currentUser, this.editUser)
+            this.isEditNow = false;
+          }
         },
         (error) => {
           if(error) {

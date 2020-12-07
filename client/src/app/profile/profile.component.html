@@ -84,7 +84,7 @@
       </div>
       <small>Link to a bla bla</small>
     </div>
-    <div>
+    <div *ngIf="!editUser.isActive">
       <div class="col">
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{editUser.faction && editUser.faction.name ? editUser.faction.name : 'Choose faction'}}</button>
