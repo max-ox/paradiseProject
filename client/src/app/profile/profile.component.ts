@@ -161,11 +161,4 @@ export class ProfileComponent implements OnInit {
     // TODO: modal are you sure
   }
 
-  gotoAdmin() {
-
-    console.log('this.helpersService.isAdmin', this.helpersService.isAdmin);
-    console.log('this.helpersService.isLoggedIn', this.helpersService.isLoggedIn);
-    this.router.navigate(['admin']);
-  }
-
 }

@@ -15,15 +15,17 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
+
   }
 
   ngOnInit(): void {
-    this.authService.checkServerSession().subscribe(
-      res => (
-        console.log('res', res)
+    this.authService.checkServerSession()
+      .subscribe(
+        res => {
+          console.log('ers', res);
+          this.authService.currentUser.subscribe(x => this.currentUser = x);
+        }
       )
-    )
   }
 
   logout() {

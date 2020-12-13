@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Faction } from '../models/faction.model';
 import {Observable, throwError} from 'rxjs';
+// import {AuthService} from '../auth/auth.service'
 
 @Injectable()
 export class HelpersService {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient,
+              // private authService: AuthService
+  )
+  {}
 
 
   getToken() {
@@ -18,11 +22,6 @@ export class HelpersService {
     return (authToken !== null) ? true : false;
   }
 
-  get isAdmin(): boolean {
-    let role = localStorage.getItem('role');
-    //todo: get role not in LS
-    return (role == 'admin') ? true : false;
-  }
 
 
   // Error

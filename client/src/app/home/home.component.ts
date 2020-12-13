@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
 import { User } from '../user/user.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +12,17 @@ import { User } from '../user/user.model';
 })
 export class HomeComponent {
   currentUser: User;
+  subscription: Subscription;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
+    // this.authService.currentUser.subscribe(x => this.currentUser = x);
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.authService.currentUserValueSubscribe().subscribe(msg => this.currentUser = msg);
   }
 
   logout() {

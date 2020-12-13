@@ -116,9 +116,4 @@
         <span class="corner-border-bottom"></span>
     </div>
 </div>
-<a routerLink="/admin">
-  admin
-</a>
-<div (click)="this.gotoAdmin()">
-  it is ADMIN
-</div>
+<a class="nav-link" [routerLink]="['/admin', 'dashboard']">Dashboard</a>

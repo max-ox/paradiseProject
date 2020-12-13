@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     private userService: UserService,
     public router: Router
   ) {
-    this.currentUser = this.authService.currentUserValue;
+    //this.currentUser = this.authService.currentUserValue;
   }
 
   ngOnInit(): void {

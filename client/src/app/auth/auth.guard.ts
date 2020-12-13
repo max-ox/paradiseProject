@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot,
-  UrlTree, CanActivate, CanLoad, Router, Route } from '@angular/router';
+  UrlTree, CanActivate, CanLoad, Router, Route, 	UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HelpersService } from '../_helpers/helpers.service';
@@ -8,7 +8,7 @@ import { HelpersService } from '../_helpers/helpers.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(
     public authService: AuthService,
@@ -32,12 +32,11 @@ export class AuthGuard implements CanActivate {
   }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.helpersService.isLoggedIn !== true) {
+    if (this.helpersService.isLoggedIn !== true) {
       return false;
     }
 
-    console.log('this.helpersService.isAdmin', this.helpersService.isAdmin);
-    if (!this.helpersService.isAdmin !== true) {
+    if (this.authService.isAdmin !== true) {
       return false;
     }
 
