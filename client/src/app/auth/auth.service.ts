@@ -80,12 +80,14 @@ export class AuthService {
     window.open('/api/auth/vkontakte',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
     let listener = window.addEventListener('message', (message) => {
       if(message && message.data && message.data.nickname) {
+        console.log('message.data', message.data)
         const nickname = message.data.nickname;
         localStorage.setItem('currentUser', JSON.stringify(nickname));
         this.currentUserSubject.next(nickname);
         localStorage.setItem('access_token', message.data.sessionID)
+        localStorage.setItem('role', message.data.role)
         // return user;
-
+        //todo: save role not in LS
         this.router.navigate(['/profile/' + nickname]);
       }
     });

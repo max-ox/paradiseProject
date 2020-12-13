@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'rating', component: RatingComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },
+  { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canLoad: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
 
   // otherwise redirect to home

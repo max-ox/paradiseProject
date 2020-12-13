@@ -20,6 +20,7 @@ module.exports = {
     // mailFrom: process.env.M_FROM,
 
     nodeAuthSecret: process.env.NODE_AUTH_SECRET,
+    adminEmails: process.env.adminEmails,
 
     frontendOrigin: process.env.FRONTEND_ORIGIN,
 

@@ -18,6 +18,12 @@ export class HelpersService {
     return (authToken !== null) ? true : false;
   }
 
+  get isAdmin(): boolean {
+    let role = localStorage.getItem('role');
+    //todo: get role not in LS
+    return (role == 'admin') ? true : false;
+  }
+
 
   // Error
   handleError(error: HttpErrorResponse) {

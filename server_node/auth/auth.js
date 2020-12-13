@@ -68,6 +68,11 @@ function initPassport () {
                         vkontakteId: profile.id,
                         isActive: false
                     });
+                    // let adminEmails = ['maximovaoxana@gmail.com', 'santyago.kor@gmail.com'];
+                    const isAdmin = config.adminEmails.indexOf(profile.emails[0].value) ;
+                    if(isAdmin != -1) {
+                        user.role = 'admin'
+                    }
                     user.save(function(err) {
                         if (err) console.log('user.save err ', err);
                         return done(err, {user, accessToken});
