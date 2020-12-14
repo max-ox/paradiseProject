@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'rating', component: RatingComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule', canLoad: [AuthGuard] },
+  { path: 'admin', loadChildren: '../app/admin/admin.module#AdminModule', canLoad: [AuthGuard] },
   { path: '404', component: PageNotFoundComponent },
 
   // otherwise redirect to home

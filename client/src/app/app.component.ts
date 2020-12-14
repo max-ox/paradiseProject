@@ -9,7 +9,7 @@ import { User } from './user/user.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  currentUser: User;
+  currentUser: String;
 
   constructor(
     private router: Router,

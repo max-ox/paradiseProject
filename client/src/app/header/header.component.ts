@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   subscription: Subscription;
-  currentUser: User;
+  currentUser: String;
 
   constructor(
     private authService: AuthService,

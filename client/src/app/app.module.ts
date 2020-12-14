@@ -21,7 +21,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FactionService } from './services/faction.service';
 import { UserService } from './user/user.service';
 import { HelpersService } from './_helpers/helpers.service';
-import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 import { AuthGuard } from "./auth/auth.guard";

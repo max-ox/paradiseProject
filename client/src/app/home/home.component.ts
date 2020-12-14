@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  currentUser: User;
+  currentUser: String;
   subscription: Subscription;
 
   constructor(

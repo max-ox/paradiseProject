@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ReportComponent implements OnInit {
   subscription: Subscription;
-  currentUser: User;
+  currentUser: String;
 
   constructor(
     private authService: AuthService,
