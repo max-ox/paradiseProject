@@ -6,7 +6,29 @@ var config = require('../config');
 var jwt = require('jsonwebtoken');
 
 
-router.get('/isLogin', isLogin());
+router.get('/isLogin', isLogin(),
+    function(req, res) {
+        let currentUserId = '';
+        console.log('req.session.passport', req.session);
+        if(req.session && req.session.passport && req.session.passport.user) {
+            const decoded = jwt.verify(req.session.passport.user, config.nodeAuthSecret);
+            currentUserId = decoded._id;
+            User.findById(currentUserId, function (err, user) {
+                console.log('get profile user', user);
+                if (err) {
+                    res.status(500).send({data: err});
+                } else {
+                    let response = JSON.stringify({
+                        nickname: user.nickname,
+                        role: user.role,
+                        sessionID: req.sessionID
+                    });
+                    res.status(200).send(response);
+                }
+            })
+        }
+
+    });
 
 router.get('/:nickname',
     function(req, res) {
@@ -25,8 +47,6 @@ router.get('/:nickname',
                             const decoded = jwt.verify(req.session.passport.user, config.nodeAuthSecret);
                             currentUserId = decoded._id;
                         }
-                        // console.log('currentUserId', currentUserId);
-                        // console.log('currentUserId', user._id);
                         if(currentUserId && user && currentUserId == user._id) {
                             isCurrent = true;
                         } else {

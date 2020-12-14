@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Faction } from '../models/faction.model';
 import {Observable, throwError} from 'rxjs';
+// import {AuthService} from '../auth/auth.service'
 
 @Injectable()
 export class HelpersService {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient,
+              // private authService: AuthService
+  )
+  {}
 
 
   getToken() {
@@ -17,6 +21,7 @@ export class HelpersService {
     let authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
   }
+
 
 
   // Error

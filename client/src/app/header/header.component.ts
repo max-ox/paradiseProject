@@ -12,14 +12,14 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   subscription: Subscription;
-  currentUser: User;
+  currentUser: String;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     public router: Router
   ) {
-    this.currentUser = this.authService.currentUserValue;
+    //this.currentUser = this.authService.currentUserValue;
   }
 
   ngOnInit(): void {

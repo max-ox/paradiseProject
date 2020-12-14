@@ -9,21 +9,23 @@ import { User } from './user/user.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  currentUser: User;
+  currentUser: String;
 
   constructor(
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.currentUser.subscribe(x => this.currentUser = x);
+
   }
 
   ngOnInit(): void {
-    this.authService.checkServerSession().subscribe(
-      res => (
-        console.log('res', res)
+    this.authService.checkServerSession()
+      .subscribe(
+        res => {
+          console.log('ers', res);
+          this.authService.currentUser.subscribe(x => this.currentUser = x);
+        }
       )
-    )
   }
 
   logout() {

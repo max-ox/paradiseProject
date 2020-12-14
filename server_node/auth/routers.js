@@ -14,6 +14,7 @@ router.get('/vkontakte/callback',
         var responseHTML = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res, "*");window.close();</script></html>'
         responseHTML = responseHTML.replace('%value%', JSON.stringify({
             nickname: req.user.user.nickname,
+            role: req.user.user.role,
             sessionID: req.sessionID
         }));
         res.status(200).send(responseHTML);
